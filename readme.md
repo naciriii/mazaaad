@@ -1,4 +1,4 @@
-<h3>PFE Mazaad Build Status :</h3> <img src="https://travis-ci.org/naciriii/mazaaad.svg?branch=master"> 
+<p align="center"><h3>PFE Mazaad Build Status :</h3><a href="https://travis-ci.org/naciriii/mazaaad"> <img src="https://travis-ci.org/naciriii/mazaaad.svg?branch=master"></a> </p>
 <br>
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
