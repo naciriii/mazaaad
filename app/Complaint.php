@@ -8,4 +8,9 @@ class Complaint extends Model
 {
     //
     protected $table = 'complaints';
+
+    public function subject()
+    {
+    	return $this->belongsTo('App\Subject','subject_id','id');
+    }
 }

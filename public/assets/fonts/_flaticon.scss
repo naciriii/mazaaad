@@ -1,0 +1,77 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 04/08/2017 12:15
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-home:before { content: "\f100"; }
+.flaticon-glasses:before { content: "\f101"; }
+.flaticon-diamond:before { content: "\f102"; }
+.flaticon-dress-1:before { content: "\f103"; }
+.flaticon-shopping-cart:before { content: "\f104"; }
+.flaticon-credit-card:before { content: "\f105"; }
+.flaticon-shipped:before { content: "\f106"; }
+.flaticon-question:before { content: "\f107"; }
+.flaticon-menu:before { content: "\f108"; }
+.flaticon-doctor-coat:before { content: "\f109"; }
+.flaticon-jacket-1:before { content: "\f10a"; }
+.flaticon-hijab:before { content: "\f10b"; }
+.flaticon-cosmetics:before { content: "\f10c"; }
+.flaticon-jacket:before { content: "\f10d"; }
+.flaticon-v-neck-shirt:before { content: "\f10e"; }
+.flaticon-high-heel:before { content: "\f10f"; }
+.flaticon-dress:before { content: "\f110"; }
+.flaticon-luxury:before { content: "\f111"; }
+.flaticon-flaticon:before { content: "\f112"; }
+    
+    $font-Flaticon-home: "\f100";
+    $font-Flaticon-glasses: "\f101";
+    $font-Flaticon-diamond: "\f102";
+    $font-Flaticon-dress-1: "\f103";
+    $font-Flaticon-shopping-cart: "\f104";
+    $font-Flaticon-credit-card: "\f105";
+    $font-Flaticon-shipped: "\f106";
+    $font-Flaticon-question: "\f107";
+    $font-Flaticon-menu: "\f108";
+    $font-Flaticon-doctor-coat: "\f109";
+    $font-Flaticon-jacket-1: "\f10a";
+    $font-Flaticon-hijab: "\f10b";
+    $font-Flaticon-cosmetics: "\f10c";
+    $font-Flaticon-jacket: "\f10d";
+    $font-Flaticon-v-neck-shirt: "\f10e";
+    $font-Flaticon-high-heel: "\f10f";
+    $font-Flaticon-dress: "\f110";
+    $font-Flaticon-luxury: "\f111";
+    $font-Flaticon-flaticon: "\f112";
