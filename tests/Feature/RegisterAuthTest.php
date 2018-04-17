@@ -21,13 +21,15 @@ class RegisterAuthTest extends TestCase
      */
     public function testRegister()
     {
-    	 $this->get('/register')
+    	$this->get('/register')
     	->assertStatus(200)
-    			 ->assertSee('Register');
+        
+    			->assertSee('Register');
     			 $user = ['name'=>'naciri2',
     			 'email'=>'testing@tt.tt',
     			 'password'=>'123456789',
-    			 'password_confirmation' => '123456789'];
+    			 'password_confirmation' => '123456789',
+                 '_token'=> csrf_token()];
 
     	$response=$this->post('/register',$user);
     	$this->assertDatabaseHas('users',['email'=>$user['email']]);

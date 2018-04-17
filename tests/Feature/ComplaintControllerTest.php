@@ -10,7 +10,7 @@ use App\User;
 
 class ComplaintControllerTest extends TestCase
 {
-
+    use WithoutMiddleware;
     /**
      * A basic test example.
      *
@@ -19,6 +19,13 @@ class ComplaintControllerTest extends TestCase
     public function testStoreComplaint()
     {
     	$user = User::all()->first();
+        if($user == null) {
+            $user = new User;
+            $user->name ='testingUser';
+            $user->email ='test@tes.tes';
+            $user->password =bcrypt('123456');
+            $user->save();
+        }
     	$response = $this->actingAs($user)->post('/complaints',['subject_id' => 1,'content'=>'tes tsgt est']);
     	$this->assertDatabaseHas('complaints',['subject'=>1,'content'=>'tes tsgt est','user_id'=>$user->id]);
         

@@ -18,5 +18,6 @@ before_script:
   - mysql -u root --password="" -e "CREATE DATABASE mazaad"
   - cp .env.travis .env
   - php artisan migrate
+  - php artisan db:seed --class=CategorySeeder 
   
   
