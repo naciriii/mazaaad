@@ -16,6 +16,7 @@
                             </div>
                             <div class="form-group xt-form search-bar  col-md-1 col-sm-1 col-xs-1 ">
                                 <input type="text" class="form-control" placeholder="Min " />
+                                {{dump($categories)}}
                                 
                             </div>
                             <div class="form-group xt-form search-bar  col-md-1 col-sm-1 col-xs-1 ">
