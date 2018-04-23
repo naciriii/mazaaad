@@ -20,5 +20,10 @@ Route::post('/complaints','ComplaintController@addComplaint');
 
 Route::group(['prefix' => 'products'],function() {
 	Route::get('/','ProductController@index')->name('products.index');
+	Route::get('/category/{category}','@roductController@getByCategory')->name('products.getByCategory');
+		Route::get('/add','ProductController@addProduct')->name('products.add');
+	Route::get('/{id}','ProductController@show')->name('products.show');
+
+	Route::post('/store','ProductController@storeProduct')->name('products.store');
 
 });

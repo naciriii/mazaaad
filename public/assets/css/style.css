@@ -398,6 +398,16 @@ a:focus {
   color: #fff;
   border-color: transparent;
 }
+.btn-fill-success {
+  background-color: #85b716 !important;
+  color: #fff;
+  border-color: transparent !important;
+}
+
+.btn-fill-success:hover {
+  background-color: #3bb716;
+  border-color: transparent;
+}
 .btn.btn-fill:hover {
   background-color: #f04e50;
   border-color: transparent;
@@ -1415,6 +1425,18 @@ ul li {
   background: #e43137;
   padding: 0px 8px;
   color: #fff;
+}
+.product-tag-live {
+    background: #85b716 !important;
+    position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 10px;
+  font-weight: 600;
+
+  padding: 0px 8px;
+  color: #fff;
+
 }
 .xt-feature .product-info {
   padding-top: 20px;

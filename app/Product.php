@@ -17,9 +17,16 @@ class Product extends Model
     {
     	return $this->belongsTo('App\Category','category_id','id');
     }
+    public function mainPicture()
+    {
+        return $this->belongsToMany('App\Picture','product_pictures','product_id','picture_id')
+        ->wherePivot('is_main',true);
+
+    }
     public function pictures()
     {
-    	return $this->hasMany('App\Picture','product_id','id');
+    	return $this->belongsToMany('App\Picture','product_pictures','product_id','picture_id')
+        ->wherePivot('is_main',false);
     }
     public function region()
     {
