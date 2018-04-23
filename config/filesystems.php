@@ -65,7 +65,7 @@ return [
 
         'dropbox' => [
        'driver' => 'dropbox',
-       'authorizationToken' => env('DROPBOX_ACCESS_TOKEN'),
+       'authorizationToken' => env('DROPBOX_ACCESS_TOKEN','vJafwr0JYsAAAAAAAAAAJxly-x2kxVrJhlOunY3VAGrbSd_ItnyboxBz6UbEJbM-'),
     
         ],
 
