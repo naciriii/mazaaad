@@ -34,8 +34,9 @@ class ProductControllerTest extends TestCase
             $user->password =bcrypt('123456');
             $user->save();
         }
+             $name = "testProduct".time();
         $response = $this->actingAs($user)
-        $name = "testProduct".time();
+   
         ->post('/products/store',['name' => $name,'start_price'=>10,
         	'stop_date'=>'2018-10-10',
         	'category_id' => 1,
