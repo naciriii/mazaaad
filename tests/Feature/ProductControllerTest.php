@@ -52,7 +52,7 @@ class ProductControllerTest extends TestCase
 
      $this->assertDatabaseHas('products',
      ['name'=>$name,'user_id'=>$user->id]);
-     $this->assertTrue($user->products->where('name','testProduct')->first()!=null);
+     $this->assertTrue($user->products->where('name',$name)->first()!=null);
 
 
    
