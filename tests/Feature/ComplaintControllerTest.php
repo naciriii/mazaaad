@@ -11,6 +11,7 @@ use App\User;
 class ComplaintControllerTest extends TestCase
 {
     use WithoutMiddleware;
+    use DatabaseTransactions;
     /**
      * A basic test example.
      *

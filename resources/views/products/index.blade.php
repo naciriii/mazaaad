@@ -120,7 +120,7 @@
 <div class="xt-feature">
           <span class="btn btn-block btn-fill-success countdown-container">
 
-         <span data-finish="{{$product->stop_date}}" class="defaultCountdown"></span>   
+         <span data-product="{{$product->id}}" data-finish="{{$product->stop_date}}" class="defaultCountdown"></span>   
   </span>
 <div class="product-img">
        @if($product->pictures->count())
@@ -133,7 +133,7 @@
 
 
   <span class=" @if($product->is_available) product-tag-live @else product-tag @endif xt-uppercase">
-       @if($product->is_available) Live @else Sold! @endif</span>
+       @if($product->is_available) Live @else Out! @endif</span>
 </div>
 <div class="product-info">
   <div class="product-title">
@@ -156,7 +156,8 @@
     
        <div 
            class="name xt-semibold text-center">
-                     <button class="btn btn-fill">Bid</button>
+                     <a href= "{{route('products.show',['id'=>$product->id])}}"><button class="btn btn-fill">Bid</button>
+                     </a>
        </div>
   </div>
 </div>
@@ -219,15 +220,35 @@
 <script type="text/javascript" src="{{asset('assets/js/jquery.countdown.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/jquery.countdown-fr.js')}}"></script>
 <script type="text/javascript">
+var bidExpireUrl = "{{route('bids.expire')}}";
+function onExpire(product) {
+  var data = {
+    _token:"{{csrf_token()}}",
+    product_id:product
+  }
+  $.post(bidExpireUrl,data,function(res) {
+
+  });
+}
  
 function initCounters() {
 $('.defaultCountdown').each(function() {
        var finish = $(this).data('finish').split('-');
-       console.log(finish);
+       var product_id = $(this).data('product');
+       var el = $(this);
+    
              var deadLine = new Date(finish[0],finish[1]-1,finish[2]); 
              console.log(deadLine);
        
-       $(this).countdown({until: deadLine});
+       $(this).countdown({until: deadLine,onExpiry:expiryCallback});
+       function expiryCallback() {
+        //console.log(product_id);
+        
+        el.closest('.xt-feature .product-tag-live').removeClass('product-tag-live').addClass('product-tag').text('Out!');
+        //notify users and change status
+        onExpire(product_id);
+
+       }
 });
 }
 $(document).ready(function() {

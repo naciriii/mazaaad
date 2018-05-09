@@ -27,3 +27,8 @@ Route::group(['prefix' => 'products'],function() {
 	Route::post('/store','ProductController@storeProduct')->name('products.store');
 
 });
+
+Route::group(['prefix' => 'bids'],function() {
+	Route::post('/expire','BidController@OnExpire')->name('bids.expire');
+	Route::post('/addBid','BidController@addBid')->name('bids.addBid');
+	});

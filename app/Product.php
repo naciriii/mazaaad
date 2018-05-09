@@ -40,5 +40,17 @@ class Product extends Model
     {
     	return $this->hasMany('App\Bid','product_id','id');
     }
+    public function topBid()
+    { 
+        if ($this->bids->count()) {
+        return $this->bids()->orderBy('price','desc')->first()->price;
+     }
+     return $this->start_price;
+    }
+    public function winningBid()
+    {
+        return $this->hasOne('App\Bid','product_id','id')
+                      ->where('is_winning',true);
+    }
 }
 

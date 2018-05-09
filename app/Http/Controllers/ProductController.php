@@ -33,7 +33,17 @@ class ProductController extends Controller
 
     public function getByCategory($category_id)
     {}
-    public function show($id){}
+
+    public function show($id){
+        $product = Product::find($id);
+
+        $data = [
+        'product' => $product];
+        ;
+
+        return view('products.details')->with($data);
+
+    }
 
     public function filterProducts(Request $request)
     {
