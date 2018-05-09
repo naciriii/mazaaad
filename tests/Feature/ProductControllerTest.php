@@ -35,7 +35,7 @@ class ProductControllerTest extends TestCase
             $user->save();
         }
         $response = $this->actingAs($user)
-        ->post('/products/store',['name' => "testProduct",'start_price'=>10,
+        ->post('/products/store',['name' => "testProduct".time(),'start_price'=>10,
         	'stop_date'=>'2018-10-10',
         	'category_id' => 1,
         	'region_id' => 1,
