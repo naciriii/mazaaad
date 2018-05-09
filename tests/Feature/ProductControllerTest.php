@@ -35,7 +35,8 @@ class ProductControllerTest extends TestCase
             $user->save();
         }
         $response = $this->actingAs($user)
-        ->post('/products/store',['name' => "testProduct".time(),'start_price'=>10,
+        $name = "testProduct".time();
+        ->post('/products/store',['name' => $name,'start_price'=>10,
         	'stop_date'=>'2018-10-10',
         	'category_id' => 1,
         	'region_id' => 1,
@@ -49,7 +50,7 @@ class ProductControllerTest extends TestCase
         	 ]);
 
      $this->assertDatabaseHas('products',
-     ['name'=>'testProduct','user_id'=>$user->id]);
+     ['name'=>$name,'user_id'=>$user->id]);
      $this->assertTrue($user->products->where('name','testProduct')->first()!=null);
 
 
