@@ -96,7 +96,7 @@ class ProductController extends Controller
     	$product->stop_date = $request->stop_date;
     	$product->category_id = $request->category_id;
     	$product->region_id = $request->region_id;
-        $product->user_id = 1;
+        $product->user_id = $request->has('user_id')?$request->user_id:1;
     	$product->save();
     	if($request->has('description')) {
     		$product_detail = new ProductDetail;
