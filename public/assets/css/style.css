@@ -2061,10 +2061,10 @@ nav ul.xt-side-menu > li > ul.xt-dropdown {
 .xt-cart {
   float: right;
   height: 36px;
-  margin-top: 20px;
+  margin-top: 3px;
   width: 100%;
   text-align: right;
-  border-left: 1px solid #000;
+ 
 }
 .xt-cart i {
   font-size: 22px;
@@ -2074,7 +2074,7 @@ nav ul.xt-side-menu > li > ul.xt-dropdown {
 }
 .xt-cart .xt-item-count {
   position: absolute;
-  top: 18px;
+  top: 10px;
   right: 0;
   height: 18px;
   font-weight: bold;
@@ -2107,6 +2107,7 @@ nav ul.xt-side-menu > li > ul.xt-dropdown {
 .xt-cart-items {
   border-radius: 0;
   padding: 20px 0;
+  z-index: 1050;
 }
 .xt-cart-items li a {
   padding: 1px 20px;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" >
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,13 +8,19 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Mazaad') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style type="text/css">
+    .btn.btn-fill {
+    background-color: #f26667;
+    color: #fff;
+    border-color: transparent;
+    }</style>
 </head>
 <body>
-    <div id="app">
+    <div id="app" style="background:#fff;">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -28,9 +34,9 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+                   
+                        <a class="navbar-brand" style="margin-top:-10px" href="{{route('home.index')}}"><img src="{{asset('assets/images/flogo.png')}}" alt="" class="img-responsive"></a> 
+                   
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -68,6 +74,7 @@
                         @endif
                     </ul>
                 </div>
+                
             </div>
         </nav>
 

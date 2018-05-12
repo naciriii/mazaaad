@@ -14,6 +14,7 @@ class UserController extends Controller
 
     public function getProfile()
     {
+        return view('users.profile');
 
     }
     public function updateProfile()

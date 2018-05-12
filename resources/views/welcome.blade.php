@@ -54,12 +54,7 @@
                             <input type="text" class="form-control" placeholder="Search " />
                         </div>
                          <div class="form-group xt-form search-bar  col-md-4 col-sm-4 col-xs-4 ">
-                            <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
-                                {!! csrf_field() !!}
-                                <input type="file" name="picture">
-                                <input type="submit" name="">
-                                
-                            </form>
+                            
                             <div class="xt-select xt-search-opt">
                                 <select class="xt-dropdown-search select-beast">
                                     <option>All Regions</option>
@@ -84,39 +79,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-1 col-sm-2 col-xs-2">
-                        <div class="xt-cart">
-                            <ul>
-                                <li class="dropdown">
-                                  <a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
-                                   <i class=" fa fa-bell"></i>
-                                  </a>
-                                    <ul class="dropdown-menu xt-cart-items">
-                                        <li>
-                                            <a href="">
-                                                <img src="assets/images/4.jpg" alt="">
-                                                <h3>Lipstick</h3>
-                                                <span class="cart-price">$299</span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="" class="subtotal top-checkout">
-                                                <h3>Subtotal : </h3>
-                                                <span class="total-price">$999</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="process top-checkout">
-                                                <h3>Process to Checkout </h3>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <span class="xt-item-count">8</span>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

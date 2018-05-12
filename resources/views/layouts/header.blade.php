@@ -69,7 +69,7 @@
             <div class="header-top">
                 <div class="container">
                     <div class="row">
-                        <div class="xt-language col-md-6 col-sm-6 col-xs-12">
+                        <div class="xt-language col-md-5 col-sm-5 col-xs-12">
                             <div class="each-nav">
                                 <ul>
                                     <li class="dropdown">
@@ -85,12 +85,79 @@
                             </div>
                         </div>
                         
-                        <div class="user-nav pull-right col-md-6 col-sm-6 col-xs-12">
+                        <div class="user-nav  col-md-6 col-sm-6 col-xs-12">
+                           @if(Auth::guest())
                             <ul>
                                 <li><a href="{{asset('/register')}}">Sign up</a></li>
                                 <li><a href="{{asset('/login')}}">login</a></li>
                             </ul>
+                            @else
+                            <ul>
+                                
+                               <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" style="z-index:1050;" role="menu">
+                                    <li>
+                                             <a href="{{ route('users.profile') }}">
+                                                Profile
+                                         </a>
+                                    </li> <br>
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                            </ul>
+                            @endif
+                        
+                  
+                   
                         </div>
+                        <div class="clear"></div>
+                          <div class="col-md-1 col-sm-1 col-xs-12 pull-right">
+                        <div class="xt-cart">
+                            <ul>
+                                <li class="dropdown">
+                                  <a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                                   <i class=" fa fa-bell"></i>
+                                  </a>
+                                    <ul class="dropdown-menu xt-cart-items">
+                                        <li>
+                                            <a href="">
+                                                <img src="assets/images/4.jpg" alt="">
+                                                <h3>Lipstick</h3>
+                                                <span class="cart-price">$299</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="" class="subtotal top-checkout">
+                                                <h3>Subtotal : </h3>
+                                                <span class="total-price">$999</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="process top-checkout">
+                                                <h3>Process to Checkout </h3>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <span class="xt-item-count"> 8</span>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>

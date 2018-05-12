@@ -32,3 +32,7 @@ Route::group(['prefix' => 'bids'],function() {
 	Route::post('/expire','BidController@OnExpire')->name('bids.expire');
 	Route::post('/addBid','BidController@addBid')->name('bids.addBid');
 	});
+
+Route::group(['prefix' => 'users'],function() {
+	Route::get('/profile','UserController@getProfile')->name('users.profile');
+	});
