@@ -33,6 +33,7 @@ Route::group(['prefix' => 'bids'],function() {
 	Route::post('/addBid','BidController@addBid')->name('bids.addBid');
 	});
 
-Route::group(['prefix' => 'users'],function() {
-	Route::get('/profile','UserController@getProfile')->name('users.profile');
+Route::group(['prefix' => 'profile'],function() {
+	Route::get('/','UserController@getProfile')->name('users.profile');
+	Route::post('/update','UserController@updateProfile')->name('users.updateProfile');
 	});
