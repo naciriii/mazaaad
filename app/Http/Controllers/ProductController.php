@@ -15,6 +15,14 @@ use Spatie\FlysystemDropbox\DropboxAdapter;
 class ProductController extends Controller
 {
     //
+    public function __construct()
+    {
+        Parent::__construct();
+        $this->middleware('auth',['except'=>['index','getByCategory',
+            'show',
+            'filterProducts',
+            ]]);
+    }
    
 
     public function index()

@@ -24,7 +24,7 @@
                             <div class="footer-widget">
                                 <h4>My account</h4>
                                 <ul>
-                                    <li><a href=""><i class="fa fa-caret-right"></i>My account</a></li>
+                                    <li><a href="{{route('users.profile')}}"><i class="fa fa-caret-right"></i>My account</a></li>
                                     <li><a href=""><i class="fa fa-caret-right"></i>about us</a></li>
                                     
                                 </ul>
