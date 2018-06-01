@@ -9,6 +9,9 @@
             background: #f5f5f5;
             cursor: pointer;
             }
+            .show-success {
+                border:2px solid green !important;
+            }
             
             </style>
 @endsection
@@ -30,25 +33,30 @@ ng-init="vm.init('{{route('users.updateProfile')}}',{{Auth::user()->toJson()}},'
                         <li ng-click="vm.toggle('nameForm')" class="list-group-item default"> Name <i class=" fa pull-right"
                                     ng-class="vm.nameForm==true?'fa-caret-up':'fa-caret-down'"></i> </li>
                         <li ng-show="vm.nameForm" class="list-group-item">
-                            <input type="text" ng-model="vm.user.name" class="form-control"  placeholder="[[vm.user.name]]">
-                            <small class="form-text text-danger"> hhhj</small>
+                            <input type="text" ng-class="{'show-success':vm.success}" ng-model="vm.user.name" class="form-control "  placeholder="[[vm.user.name]]">
+                            <small ng-show="vm.nameError.length>0" class="form-text text-danger">[[vm.nameError]]</small>
                             <br> 
-                            <button ng-disabled="vm.user.name.length == 0;" class="btn btn-sm btn-fill">Save</button>
+                            <button ng-click="vm.update('name')" ng-disabled="vm.user.name.length == 0;" class="btn btn-sm btn-fill">Save</button>
+                             <i ng-show="vm.loading" class="fa fa-spinner fa-spin fa-2x"></i>
                         </li>
                            <li ng-click="vm.toggle('emailForm')" class="list-group-item default"> Email <i class=" fa pull-right"
                                     ng-class="vm.emailForm==true?'fa-caret-up':'fa-caret-down'"></i></li>
                         <li ng-show="vm.emailForm" class="list-group-item">
-                            <input type="text" class="form-control" placeholder="[[vm.user.email]]">
+                            <input ng-class="{'show-success':vm.success}"  ng-focus="vm.emailError=''" ng-model="vm.user.email" type="text" class="form-control" value="[[vm.user.email]]">
+                            <small ng-show="vm.emailError.length>0" class="form-text text-danger">[[vm.emailError]]</small>
                             <br> 
-                            <button class="btn btn-sm btn-fill">Save</button>
+                            <button ng-click="vm.update('email')" ng-disabled="vm.user.email.length == 0;"  class="btn btn-sm btn-fill">Save</button>
+                              <i ng-show="vm.loading" class="fa fa-spinner fa-spin fa-2x"></i>
                         </li>
                            <li ng-click="vm.toggle('passwordForm')" class="list-group-item default"> Password <i class=" fa pull-right"
                                     ng-class="vm.passwordForm==true?'fa-caret-up':'fa-caret-down'"></i> </li>
                         <li ng-show="vm.passwordForm" class="list-group-item">
-                            <input type="password" class="form-control" placeholder="Old Password">
-                            <input type="password" class="form-control" placeholder="New Password">
-                            <br> <
-                            button class="btn  btn-sm btn-fill">Save</button>
+                            <input ng-class="{'show-success':vm.success}"  ng-focus="vm.passwordError=''" ng-model="vm.user.old_password" type="password" class="form-control" placeholder="Old Password">
+                            <input ng-class="{'show-success':vm.success}" ng-focus="vm.passwordError=''" ng-model="vm.user.new_password" type="password" class="form-control" placeholder="New Password">
+                            <small ng-show="vm.passwordError.length>0" class="form-text text-danger">[[vm.passwordError]]</small>
+                            <br> 
+                            <button ng-click="vm.update('password')" ng-disabled="vm.user.new_password.length == 0 || vm.user.old_password.length == 0 ;"  class="btn  btn-sm btn-fill">Save</button>
+                            <i ng-show="vm.loading" class="fa fa-spinner fa-spin fa-2x"></i>
                         </li>
                     </ul>
                 </div>

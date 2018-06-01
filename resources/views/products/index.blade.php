@@ -59,8 +59,8 @@
 <div class="col-md-1 col-sm-2 col-xs-2">
 <div class="xt-cart">
 <ul>
-<li class="dropdown">
-<a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+<li class="dropdown" >
+<a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" >
 <i class=" fa fa-bell"></i>
 </a>
 <ul class="dropdown-menu xt-cart-items">

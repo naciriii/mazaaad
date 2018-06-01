@@ -45,15 +45,15 @@
                             <div class="col-md-7">
                                 <div class="each-product-info">
                                     <h3>{{$product->name}}</h3>
-                                    <span class="single-price"><b>Current Price:</b> {{$product->topBid()}} TND</span>
+                                    <span class="single-price"><b>Current Price:</b> <span id="current_price">{{$product->topBid()}}</span> TND</span>
                                     <p>{{str_limit($product->details->description,10,'...')}}</p>
                                     
                                     
                                     <div class="select-quantity">
-                                        <input type="number" step="1" name="quantity" value="1" title="Qty" class="input-text qty text" size="4">
+                                        <input type="text" id="bid"  name="bid" title="" class="input-text qty text" >
                                     </div>
                                     <div class="product-add-cart">
-                                        <a href="{{route('products.show',['id'=>$product->id])}}" class="btn btn-fill">Add Bid</a>
+                                        <a onclick="addBid(event)" class="btn btn-fill">Add Bid</a>
                                         <a href="" class="btn liked "><i class="fa fa-heart-o xt-no-color"></i><i class="fa fa-heart xt-color"></i></a>
                                     </div>
                                     <div class="product-additional-info">
@@ -138,19 +138,19 @@
                                     butcher voluptate nisi qui</p>
                                     <ul class="item-review">
                                         <li>
-                                            <img src="assets/images/rating.png" alt="" >
+                                            <img src="{{asset('assets/images/rating.png')}}" alt="" >
                                             <h4>Angel Brown</h4>
                                             <p>Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel,
                                             butcher voluptate nisi qui</p>
                                         </li> 
                                         <li>
-                                            <img src="assets/images/rating.png" alt="" >
+                                         <img src="{{asset('assets/images/rating.png')}}" alt="" >
                                             <h4>Mark Monster</h4>
                                             <p>Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel,
                                             butcher voluptate nisi qui</p>
                                         </li>
                                         <li>
-                                            <img src="assets/images/rating.png" alt="" >
+                                          <img src="{{asset('assets/images/rating.png')}}" alt="" >
                                             <h4>Lol Brown</h4>
                                             <p>Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel,
                                             butcher voluptate nisi qui</p>
@@ -175,13 +175,28 @@
                 </div>
             </div>
         </div>
-       
+       <script type="text/javascript">
+       var addBidUrl="{{route('bids.addBid')}}";
+       function addBid() {
+        var bid = $('#bid').val();
+        console.log(bid);
+        $.post(addBidUrl, {
+            '_token':"{{csrf_token()}}",
+            'product_id':"{{$product->id}}",
+            'price':bid
+        },function(res) {
+            if(res.status) {
+                $('#current_price').text(bid);
+            }
+        });
+
+       }
+
+       </script>
         
 
 
 
 
 
-@endsection
-@section('content')
 @endsection

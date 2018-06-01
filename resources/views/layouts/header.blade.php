@@ -6,6 +6,64 @@
     <head>
         <!-- TITLE OF SITE -->
         <title> Mazaad</title>
+        @if(Auth::check())
+         <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+  <script>
+   var showProductUrl = "{{url('products/')}}";
+    var markNotificationViewedUrl = "{{route('users.viewNotifications')}}";
+ function  markNotificationasViewed() {
+    $.get(markNotificationViewedUrl,function(res) {
+            $('#notifications_count').text('0').addClass('hidden');
+    })
+
+ }
+  var user_channel = 'user-'+'{{ Auth::user()->id }}';
+ 
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('f7c8d6d70765043719d2', {
+      cluster: 'eu',
+      encrypted: true
+    });
+
+    var channel = pusher.subscribe(user_channel);
+    channel.bind('bidPutHandler', function(data) {
+        //console.log('data gotten');
+      //console.log(data);
+      var count  = parseInt($('#notifications_count').text());
+      if($('#notifications_count').hasClass('hidden')) {
+        $('#notifications_count').removeClass('hidden');
+      }
+      $('#notifications_count').text(++count);
+      var html =`
+      <li>
+       <a href="`+showProductUrl+'/'+data.notification.product_id+`">
+                                                <img src="`+data.notification.product_picture+`" alt="">
+                          <h3>`+data.notification.bid.product.name+`</h3>
+              <span class="cart-price">`+data.notification.bidPrice+` </span>
+            
+                     <div style="clear:both;"></div>
+                &nbsp;&nbsp;<sup>`+data.notification.text+`</sup>
+                  <sub class="pull-right">`+data.datetime+`</sub>
+                                                
+
+      </a>
+                                            
+
+                                        </li> <li class="divider"></li>`;
+                                        $('#notifications_list').prepend(html);
+
+    });
+    </script>
+    <style type="text/css">
+    #notifications_list::-webkit-scrollbar {
+
+        width: 0 !important;
+    
+        }</style>
+    @endif
         
         <!-- Meta -->
         <meta charset="utf-8">
@@ -92,7 +150,9 @@
                                 <li><a href="{{asset('/login')}}">login</a></li>
                             </ul>
                             @else
+
                             <ul>
+
                                 
                                <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -100,6 +160,12 @@
                                 </a>
 
                                 <ul class="dropdown-menu" style="z-index:1050;" role="menu">
+                                    <li>
+                                        <a href="{{ route('products.myProducts') }}"
+                                           >
+                                            My Products
+                                        </a>
+                                    </li>
                                     <li>
                                              <a href="{{ route('users.profile') }}">
                                                 Profile
@@ -125,39 +191,45 @@
                    
                         </div>
                         <div class="clear"></div>
+                         @if(Auth::check())
                           <div class="col-md-1 col-sm-1 col-xs-12 pull-right">
                         <div class="xt-cart">
                             <ul>
-                                <li class="dropdown">
-                                  <a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                                <li  onclick="markNotificationasViewed()" class="dropdown">
+                                  <a href="" onmouseover="return false;" class="dropdown-toggle" data-toggle="dropdown" data-hover="">
                                    <i class=" fa fa-bell"></i>
                                   </a>
-                                    <ul class="dropdown-menu xt-cart-items">
+                                    <ul id="notifications_list" style="height:400px; left:-150px; overflow:scroll;" class="dropdown-menu xt-cart-items">
+                                        @foreach(Auth::user()->unseenNotifications as $un)
                                         <li>
-                                            <a href="">
-                                                <img src="assets/images/4.jpg" alt="">
-                                                <h3>Lipstick</h3>
-                                                <span class="cart-price">$299</span>
-                                            </a>
-                                        </li>
+                                            <a href="{{route('products.show',[$un->bid->product->id])}}">
+                                                <img src="{{asset($un->bid->product->mainPicture->first()->path)}}" alt="">
+                                                <h3>{{$un->bid->product->name}}</h3>
+                                                <span class="cart-price">{{$un->bid->price}} </span>
+                                              
+                                                <div style="clear:both;"></div>
+                                            &nbsp;&nbsp;<sup>{{$un->text}}</sup>
+                                              <sub class="pull-right" id="datetime">{{str_limit($un->created_at,16,'')}}</sub>
+                                                
 
-                                        <li>
-                                            <a href="" class="subtotal top-checkout">
-                                                <h3>Subtotal : </h3>
-                                                <span class="total-price">$999</span>
                                             </a>
+                                            
+
                                         </li>
-                                        <li>
-                                            <a href="" class="process top-checkout">
-                                                <h3>Process to Checkout </h3>
-                                            </a>
-                                        </li>
+                                        <li class="divider"></li>
+                                        
+                                        @endforeach
+
+                                       
                                     </ul>
                                 </li>
                             </ul>
-                            <span class="xt-item-count"> 8</span>
+                           @if(Auth::user()->unseenNotifications->count())
+                            <span  id="notifications_count" class="xt-item-count"> {{Auth::user()->unseenNotifications->count()}}</span>
+                            @endif
                         </div>
                     </div>
+                    @endif
                     </div>
                 </div>
             </div>

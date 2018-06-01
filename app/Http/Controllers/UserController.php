@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Hash;
+use Auth;
+use App\UserNotification;
 
 class UserController extends Controller
 {
@@ -28,7 +30,7 @@ class UserController extends Controller
         $user = User::find(Auth::user()->id);
         switch($request->name) {
             case 'name' :
-            $user->name = $request->name;
+            $user->name = $request->value;
             $status = ['status' => true];
             break;
             case 'password':
@@ -36,14 +38,16 @@ class UserController extends Controller
                 $user->password = Hash::make($request->value);
                   $status = ['status' => true];
             } else {
-                  $status = ['status' => false, 'error' => 'Password not match.'];
+                  $status = ['status' => false, 'error' => 'Old Password does not match.'];
             }
             break;
             case 'email':
-            if(User::where('email',$request->value)->count()) {
+            if(User::where('email',$request->value)
+                ->where('id','!=',$user->id)->count()) {
                   $status = ['status' => false, 'error' => 'Email Already exists.'];
             } else {
-                $user->email = $request->email;
+                $user->email = $request->value;
+                $status = ['status' => true];
 
             }
             break;
@@ -55,5 +59,11 @@ class UserController extends Controller
         }
         return response()->json($status);
     	
+    }
+
+    public function viewNotifications() {
+       UserNotification::where('user_id',Auth::user()->id)->update(['seen'=>true]);
+       return response()->json(['status'=>true]);
+
     }
 }

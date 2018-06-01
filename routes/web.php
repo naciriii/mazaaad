@@ -21,7 +21,11 @@ Route::post('/complaints','ComplaintController@addComplaint');
 Route::group(['prefix' => 'products'],function() {
 	Route::get('/','ProductController@index')->name('products.index');
 	Route::get('/category/{category}','@roductController@getByCategory')->name('products.getByCategory');
-		Route::get('/add','ProductController@addProduct')->name('products.add');
+	Route::get('/my_products','ProductController@getMyProducts')->name('products.myProducts');
+	Route::get('/delete/{product_id}','ProductController@deleteProduct')->name('products.delete');
+	Route::get('/add','ProductController@addProduct')->name('products.add');
+	Route::get('/edit/{id}','ProductController@editProduct')->name('products.edit');
+	Route::post('/update/{id}','ProductController@updateProduct')->name('products.update');
 	Route::get('/{id}','ProductController@show')->name('products.show');
 
 	Route::post('/store','ProductController@storeProduct')->name('products.store');
@@ -35,5 +39,6 @@ Route::group(['prefix' => 'bids'],function() {
 
 Route::group(['prefix' => 'profile'],function() {
 	Route::get('/','UserController@getProfile')->name('users.profile');
+	Route::get('/view_notifications','UserController@viewNotifications')->name('users.viewNotifications');
 	Route::post('/update','UserController@updateProfile')->name('users.updateProfile');
 	});

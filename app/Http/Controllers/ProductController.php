@@ -11,6 +11,7 @@ use App\Picture;
 use App\Region;
 use Spatie\Dropbox\Client;
 use Spatie\FlysystemDropbox\DropboxAdapter;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -104,7 +105,7 @@ class ProductController extends Controller
     	$product->stop_date = $request->stop_date;
     	$product->category_id = $request->category_id;
     	$product->region_id = $request->region_id;
-        $product->user_id = $request->has('user_id')?$request->user_id:1;
+        $product->user_id = Auth::user()->id;
     	$product->save();
     	if($request->has('description')) {
     		$product_detail = new ProductDetail;
@@ -134,12 +135,17 @@ class ProductController extends Controller
     		$product_picture->save();
 
     	}
+        return redirect()->route('products.myProducts');
 
     }
 
-    public function myProducts()
+    public function getMyProducts()
     {
     	$products = Auth::user()->products;
+
+        $products->load('details','category','mainPicture','pictures');
+        $data = ['products' => $products];
+        return view('users.myProducts')->with($data);
 
 
     }
@@ -148,10 +154,51 @@ class ProductController extends Controller
     public function editProduct($id) 
     {
     	$product = Product::find($id);
+        $regions = Region::all();
+
+        $data = ['product' => $product,
+        'regions' => $regions];
+        return view('products.editProduct')->with($data);
     }
 
     public function updateProduct($id, Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'start_price' => 'required',
+            'stop_date' => 'required',
+            'category_id' => 'required',
+            'region_id' => 'required',
+            'category_id' => 'required'
+           
+
+        ]);
+        $product = Product::find($id);
+        $product->name = $request->name;
+        $product->start_price = $request->start_price;
+        $product->stop_date = $request->stop_date;
+        $product->category_id = $request->category_id;
+        $product->region_id = $request->region_id;
+        $product->user_id = Auth::user()->id;
+        $product->save();
+        if($request->has('description')) {
+            $product_detail =  ProductDetail::where('product_id',$product->id)->first();
+            $product_detail->description = $request->description;
+            $product_detail->save();
+        }
+            if($request->hasFile('main_pic')) {
+                $main_pic = ProductPicture::where('product_id',$product->id)
+                ->where('is_main',true)->first();
+                $picture = Picture::find($main_pic->picture_id);
+                 $main_pic_path = $this->upload($request->file('main_pic'));
+                 $picture->path=$main_pic_path;
+                 $picture->save();
+
+
+             }
+
+             return redirect()->back();
+
 
     }
 
@@ -162,6 +209,7 @@ class ProductController extends Controller
     	ProductPicture::where('product_id',$product->id)->delete();
     	Bid::where('product_id',$product->id)->delete();
     	$product->delete();
+        return redirect()->back();
     }
 
     private function upload(UploadedFile $picture) {

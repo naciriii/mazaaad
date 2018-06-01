@@ -46,4 +46,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Bid','user_id','id');
     }
+    public function notifications()
+    {
+        return $this->belongsToMany('App\Notification','users_notifications','user_id','notification_id');
+    }
+    public function unseenNotifications()
+    {
+        return $this->belongsToMany('App\Notification','users_notifications','user_id','notification_id')
+        ->wherePivot('seen',false);
+
+    }
 }
