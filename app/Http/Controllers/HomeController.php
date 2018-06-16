@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
 
 class HomeController extends Controller
 {
@@ -20,6 +21,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        $products = Product::where('is_valid',true)->where('is_available',false)
+        ->take(8)->get();
+        return view('welcome')->withProducts($products);
     }
 }

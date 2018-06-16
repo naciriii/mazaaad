@@ -259,3 +259,145 @@
                     </div>
                 </nav>
             </div>
+            @if(url()->getRequest()->route()->getName() == 'home.index')
+                   <!--Mobile Menu-->
+        <div class="main-color-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 left-menu-wrapper">
+                        <div class="xt-sidenav hidden-xs hidden-sm">
+                            <nav>
+                                <ul class="xt-side-menu">
+                                    <li>
+                                        <a href="#">All Category</a>
+                                        <ul class="xt-dropdown">
+                                            @if(count($categories))
+
+                                            @for($i=0;$i<$categories->count();$i++)
+                                           @if($i<8)
+
+
+                                            <li>
+                                                <a class="xt-nav-link" <a href="{{route('products.getByCategory',['category'=>$categories[$i]->id])}}">
+                                                    <i class="{{$categories[$i]->icon}}"></i> 
+                                                 {{$categories[$i]->name}}</a>
+                                                
+                                            </li>
+                                            @endif
+                                            @endfor
+                                           @if($categories->count()>8)
+
+                                            <li>
+                                                <a class="xt-nav-link" href="single-shop.html"><i class="fa flaticon-menu"></i>More</a>
+                                                <ul class="mega-menu xt-column">
+                                                    @for($i=8;$i<$categories->count();$i++)
+                                                    <li>
+                                                        <ul class="xt-single-mega">
+                                                            <li><a href="{{route('products.getByCategory',['category'=>$categories[$i]->id])}}">{{$categories[$i]->name}}</a></li>
+                                                            @endfor
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li> 
+                                            @endif
+                                        </ul>
+                                        @endif
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-9 col-sm-10 col-xs-12 xt-header-search">
+                        <div class="form-group xt-form search-bar  col-md-3 col-sm-3 col-xs-3 ">
+                            <input type="text" class="form-control" placeholder="Search " />
+                        </div>
+                         <div class="form-group xt-form search-bar  col-md-3 col-sm-3 col-xs-4 ">
+                            
+                            <div class="xt-select xt-search-opt">
+                                <select class="xt-dropdown-search select-beast">
+                                    <option>All Regions</option>
+                                    <option>Tunis</option>
+                                    <option>sousse</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group xt-form xt-search-cat col-md-3 col-sm-3 col-xs-5  ">
+                            <div class="xt-select xt-search-opt">
+                                <select class="xt-dropdown-search select-beast">
+                                    <option value="0">All Categories</option>
+                                    @foreach($categories as $c)
+                                    <option value="{{$c->id}}">{{$c->name}}</option>
+                                    @endforeach
+                                    
+                                </select>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <div class="xt-search-opt xt-search-btn ">
+                                <button type="button" class="btn btn-primary btn-search"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+            @else
+            <!--Mobile Menu-->
+<div class="main-color-bg">
+<div class="container">
+<div class="row">
+
+
+<div class="col-md-11 col-sm-10 col-xs-12 xt-header-search">
+<div class="form-group xt-form search-bar  col-md-2 col-sm-2 col-xs-1 ">
+<input type="text" class="form-control" placeholder="Search " />
+
+</div>
+<div class="form-group xt-form search-bar  col-md-1 col-sm-1 col-xs-1 ">
+<input type="text" class="form-control" placeholder="Min " />
+
+
+</div>
+<div class="form-group xt-form search-bar  col-md-1 col-sm-1 col-xs-1 ">
+<input type="text" class="form-control" placeholder="Max " />
+
+</div>
+<div class="form-group xt-form search-bar  col-md-4 col-sm-4 col-xs-4 ">
+<div class="xt-select xt-search-opt">
+<select class="xt-dropdown-search select-beast">
+<option>All Regions</option>
+@foreach($regions as $r)
+<option value ="{{$r->id}}">{{$r->name}}</option>
+@endforeach
+
+
+</select>
+</div>
+</div>
+
+<div class="form-group xt-form xt-search-cat col-md-4 col-sm-4 col-xs-5  ">
+<div class="xt-select xt-search-opt">
+<select class="xt-dropdown-search select-beast">
+<option value='0'>All Categories</option>
+@foreach($categories as $c )
+<option value="{{$c->id}}">{{$c->name}}</option>
+@endforeach
+
+<option>Cosmetic</option>
+</select>
+</div>
+<div class="xt-search-opt xt-search-btn">
+<button onclick="searchProducts()" type="button" class="btn btn-primary btn-search"><i class="fa fa-search"></i></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+            @endif
+        </header>

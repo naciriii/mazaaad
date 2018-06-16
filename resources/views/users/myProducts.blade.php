@@ -39,6 +39,7 @@
                             <th>Current Price</th>
                             <th>Stop Date</th>
                             <th>Region</th>
+                            <th>Status</th>
                             <th>Is Available</th>
                             <th></th>
                         </thead>
@@ -51,6 +52,7 @@
                              <td>{{$p->topBid()}}</td>
                             <td>{{$p->stop_date}}</td>
                             <td>{{$p->region->name}}</td>
+                             <td>{!!$p->is_valid?"<label class='label label-success'>Valid</label>":"<label class='label label-warning'>Pending</label>"!!}</td>
                             <td>{{$p->is_available?'Yes':'No'}}</td>
                             <td><a href="{{route('products.edit',['id'=>$p->id])}}"><button class="btn btn-sm btn-fill">Details</button></a></td>
                             <td><button onclick="showDeleteConfirmation('{{route('products.delete',['product_id'=>$p->id])}}')" class="btn btn-sm btn-danger">Delete</button>

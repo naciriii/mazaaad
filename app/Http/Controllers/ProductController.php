@@ -28,7 +28,7 @@ class ProductController extends Controller
 
     public function index()
     {
-    	$products = Product::all();
+    	$products = Product::where('is_valid',true)->get();
         $regions = Region::all();
 
     	$data = [
@@ -56,7 +56,7 @@ class ProductController extends Controller
 
     public function filterProducts(Request $request)
     {
-    	$products = Product::all();
+    	$products = Product::where('is_valid',true);
     	if($request->has('region')) {
     		$products = $products->where('region_id',$request->region_id);
     	}
@@ -67,7 +67,7 @@ class ProductController extends Controller
     		$products = $products->where('category_id',$request->category);
     	}
 
-    	return response()->json(['products' => $products]);
+    	return response()->json(['products' => $products->get()]);
 
     }
 

@@ -20,6 +20,7 @@
 
 
 @section('content')
+<br>
 <div class="container" ng-app="Mazaad" ng-controller="ProfileController as vm"
 ng-init="vm.init('{{route('users.updateProfile')}}',{{Auth::user()->toJson()}},'{{csrf_token()}}')">
     <div class="row">

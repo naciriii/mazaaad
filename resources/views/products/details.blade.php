@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('css')
+@section('content')
 
         <section class="xt-xt-single-product">
             <div class="container">
