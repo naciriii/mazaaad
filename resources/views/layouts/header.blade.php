@@ -33,6 +33,7 @@
         //console.log('data gotten');
       //console.log(data);
       var count  = parseInt($('#notifications_count').text());
+      console.log(count);
       if($('#notifications_count').hasClass('hidden')) {
         $('#notifications_count').removeClass('hidden');
       }
@@ -55,6 +56,7 @@
                                         </li> <li class="divider"></li>`;
                                         $('#notifications_list').prepend(html);
 
+    $('#details_page #current_price').text(data.notification.bidPrice);
     });
     </script>
     <style type="text/css">
@@ -224,9 +226,8 @@
                                     </ul>
                                 </li>
                             </ul>
-                           @if(Auth::user()->unseenNotifications->count())
-                            <span  id="notifications_count" class="xt-item-count"> {{Auth::user()->unseenNotifications->count()}}</span>
-                            @endif
+                           
+                            <span  id="notifications_count" class="xt-item-count @if(Auth::user()->unseenNotifications->count()) @else hidden @endif"> {{Auth::user()->unseenNotifications->count()}}</span>
                         </div>
                     </div>
                     @endif

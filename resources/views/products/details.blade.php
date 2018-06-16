@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-        <section class="xt-xt-single-product">
+        <section class="xt-xt-single-product" id="details_page">
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 visible-xs visible-sm padding-right-o"></div>
@@ -48,14 +48,21 @@
                                     <span class="single-price"><b>Current Price:</b> <span id="current_price">{{$product->topBid()}}</span> TND</span>
                                     <p>{{str_limit($product->details->description,10,'...')}}</p>
                                     
-                                    
+                                    @if($product->user_id != Auth::user()->id)
                                     <div class="select-quantity">
                                         <input type="text" id="bid"  name="bid" title="" class="input-text qty text" >
                                     </div>
                                     <div class="product-add-cart">
                                         <a onclick="addBid(event)" class="btn btn-fill">Add Bid</a>
-                                        <a href="" class="btn liked "><i class="fa fa-heart-o xt-no-color"></i><i class="fa fa-heart xt-color"></i></a>
+                                       
                                     </div>
+                                    @else
+                                    <div class="product-add-cart">
+                                        <a onclick="finishAuction(event)" class="btn btn-fill "><i class=" fa fa-close"></i> Finish Auction</a>
+                                        
+                                    </div>
+
+                                    @endif
                                     <div class="product-additional-info">
                                         <ul>
                                         
