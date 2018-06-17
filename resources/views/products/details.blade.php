@@ -89,7 +89,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5 text-center padding-o">
+                    <div class="col-md-5  padding-o">
                 <div class="row section-separator">
                     <div class="col-md-12">
                         <div class="xt-single-item-info">

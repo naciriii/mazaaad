@@ -197,7 +197,7 @@ class ProductController extends Controller
 
              }
 
-             return redirect()->back();
+             return redirect()->route('products.show',['id' => $product->id]);
 
 
     }
