@@ -5,8 +5,8 @@
         <section class="xt-xt-single-product" id="details_page">
                 <div class="container-fluid">
                     <div class="col-md-3 visible-xs visible-sm padding-right-o"></div>
-                    <div class="col-md-7 text-center  padding-o">
-                        <div class="xt-product-inner text-center">
+                    <div class="col-md-7  padding-o">
+                        <div class="xt-product-inner ">
                             <div class="col-md-6">
                                 <div role="tabpanel" class="tab-pane active xt-product-tab">
                                     <div class="tab-content xt-pro-small-image">
@@ -42,7 +42,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 text-center">
                                 <div class="each-product-info">
                                     <h3>{{$product->name}}</h3>
                                     <span class="single-price"><b>Current Price:</b> <span id="current_price">{{$product->topBid()}}</span> TND</span>
