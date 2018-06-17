@@ -148,19 +148,27 @@ function onExpire(product) {
 function initCounters() {
 $('.defaultCountdown').each(function() {
        var finish = $(this).data('finish').split('-');
+       //console.log(finish);
        var product_id = $(this).data('product');
        var el = $(this);
+       var time = finish[2].split(' ')[1];
+       var hour = time.split(':')[0];
+        var mnts = time.split(':')[1];
+        var scnds = time.split(':')[2];
+       var day = finish[2].split(' ')[0];
     
-             var deadLine = new Date(finish[0],finish[1]-1,finish[2]); 
-             console.log(deadLine);
+             var deadLine = new Date(finish[0],finish[1]-1,day,hour,mnts,scnds); 
+             //console.log(deadLine);
        
        $(this).countdown({until: deadLine,onExpiry:expiryCallback});
        function expiryCallback() {
         //console.log(product_id);
+      
         
-        el.closest('.xt-feature .product-tag-live').removeClass('product-tag-live').addClass('product-tag').text('Out!');
+        el.closest('.xt-feature').find('.product-tag-live').removeClass('product-tag-live').addClass('product-tag').text('Out!');
         //notify users and change status
         onExpire(product_id);
+        //console.log('expired '+product_id);
 
        }
 });

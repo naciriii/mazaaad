@@ -28,8 +28,10 @@ class BidController extends Controller
     	$bid = Bid::where('product_id',$request->product_id)
     				->orderBy('price','desc')
     				->first();
+                    if($bid!= null) {
     	$bid->is_winning = true;
     	$bid->save();
+    }
     	$product->is_available = false;
     	$product->save();
     	//notify users
@@ -48,6 +50,10 @@ class BidController extends Controller
     		'price' => 'required']);
     	$user_id = Auth::user()->id;
         $product = Product::findOrFail($request->product_id);
+        if(!$product->is_available) {
+            return abort(404);
+        }
+        
         if($product->user_id == $user_id) {
             return abort(404);
         }

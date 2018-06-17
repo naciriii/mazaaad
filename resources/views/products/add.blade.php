@@ -4,6 +4,19 @@
 
 
 @section('content')
+<script src="https://cdn.ckeditor.com/ckeditor5/10.0.1/classic/ckeditor.js"></script>
+<script type="text/javascript">
+window.addEventListener('load',function() {
+ClassicEditor
+    .create( document.getElementById('description') )
+    .then( function(editor) {
+        console.log( 'Editor was initialized', editor );
+    } )
+    .catch( function(err){
+        console.error( err.stack );
+    } );
+});
+</script>
 <style type="text/css">
 input[type="file"] {
 	display:none;
@@ -59,7 +72,7 @@ input[type="file"] {
 						<input value="{{Request::old('start_price')}}" placeholder="start_price" type="text" class="form-control" name="start_price" required>
 					</div>
                     <div class="form-group">
-                    <textarea class="form-control" type="textarea"  placeholder="Description" maxlength="140" name="description" rows="5">
+                    <textarea class="form-control" type="textarea"  placeholder="Description" id="description"  name="description">
                     	{{Request::old('description')}}
                     </textarea>
                                           
@@ -70,7 +83,7 @@ input[type="file"] {
           <div class="col-md-5 col-md-offset-2">
           	<div class="form-group"><label>End:</label> <br>
           		<div class="row">
-						<input type="date" class="form-control" name="stop_date" required>
+						<input type="datetime-local" class="form-control" name="stop_date" required>
 					</div>
 					</div>
           	<div class="form-group"><label>Main :</label> <br>

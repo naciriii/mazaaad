@@ -9,6 +9,7 @@ use App\ProductDetail;
 use App\ProductPicture;
 use App\Picture;
 use App\Region;
+use App\Bid;
 use Spatie\Dropbox\Client;
 use Spatie\FlysystemDropbox\DropboxAdapter;
 use Auth;
@@ -84,7 +85,6 @@ class ProductController extends Controller
 
     public function storeProduct(Request $request)
     {
-        
      
     	$this->validate($request, [
     		'name' => 'required',
@@ -204,6 +204,9 @@ class ProductController extends Controller
 
     public function deleteProduct($id)
     {
+        if(!Auth::user()->products->contains('id',$id)) {
+            return abort(404);
+        }
     	$product = Product::find($id);
     	ProductDetail::where('product_id',$product->id)->delete();
     	ProductPicture::where('product_id',$product->id)->delete();

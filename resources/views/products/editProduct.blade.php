@@ -70,7 +70,7 @@ input[type="file"] {
           <div class="col-md-5 col-md-offset-2">
           	<div class="form-group"><label>End:</label> <br>
           		<div class="row">
-						<input type="date" value="{{$product->stop_date}}" class="form-control" name="stop_date" required>
+						<input type="datetime-local" value="{{$product->stop_date}}" class="form-control" name="stop_date" required>
 					</div>
 					</div>
           	<div class="form-group"><label>Main :</label> <br>

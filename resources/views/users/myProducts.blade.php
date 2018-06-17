@@ -27,7 +27,9 @@
 
        
             <div class="panel panel-default">
-                <div class="panel-heading">Products</div>
+                <div class="panel-heading">Products
+                    <a href="{{route('products.add')}}" class="pull-right"><i class=" fa fa-pencil"></i> Add New</a>
+                </div>
 
                 <div class="panel-body">
                     <table class="table table-hover">
@@ -45,6 +47,7 @@
                         </thead>
                         <tbody>
                             @foreach($products as $p )
+                            <tr>
                             <td>{{$p->name}}</td>
                             <td><img src="{{$p->mainPicture->first()->path}}" width="80px" height="80px"></td>
                             <td>{{$p->category->name}}</td>
@@ -57,6 +60,7 @@
                             <td><a href="{{route('products.edit',['id'=>$p->id])}}"><button class="btn btn-sm btn-fill">Details</button></a></td>
                             <td><button onclick="showDeleteConfirmation('{{route('products.delete',['product_id'=>$p->id])}}')" class="btn btn-sm btn-danger">Delete</button>
                             </td>
+                        </tr>
 
                             @endforeach
                         </tbody>
