@@ -74,7 +74,11 @@
                         <div class="xt-feature">
                             <div class="product-img">
                                 <img height="200px" width="198px" src="{{$p->mainPicture->first()->path}}" alt="" class="">
-                                <span class="product-tag xt-uppercase">Sold!</span>
+                                @if($p->winningBid != null)
+                                <span class="product-tag xt-uppercase">Sold!</span> @else
+                                 <span class="product-tag xt-uppercase">Over!</span>
+
+                                @endif
                             </div>
                             <div class="product-info">
                                 <div class="product-title">
@@ -86,13 +90,20 @@
                                   
                                 </div>
                                 <div class="xt-featured-caption text-center">
+                                    @if($p->winningBid != null)
                                     <div class="product-title">
                                         <span class="category xt-uppercase">Sold For</span>
-                                        <span class="name xt-semibold"><b>{{$p->winningBid->price}} Tnd</b> </span>
+                                        <span class="name xt-semibold"><b>{{$p->winningBid->price or 0}} Tnd</b> </span>
                                     </div>
                                     <div class="price-tag text-center">
-                                        <span class="new-price xt-semibold">To <small>{{$p->winningBid->bidder->name}}</small> </span>
+                                        <span class="new-price xt-semibold">To <small>{{$p->winningBid->bidder->name or '' }}</small> </span>
                                     </div>
+                                    @else
+                                     <div class="product-title">
+                                        <span class="category xt-uppercase">Past Stop Date </span>
+                                       
+                                    </div>
+                                    @endif
                                     <div class="add-cart">
                                         <a href="{{route('products.show',['id'=>$p->id])}}" class="btn btn-fill">Details</a>
                                        
