@@ -61,6 +61,7 @@ class ProductControllerTest extends TestCase
     }
     public function testShowProduct() {
     	$product = Product::first();
+        
     	if($product != null) {
     		$response = $this->get('products/'.$product->id);
     		$response->assertStatus(200);

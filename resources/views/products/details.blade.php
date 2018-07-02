@@ -48,16 +48,22 @@
                                     <span class="single-price"><b>Current Price:</b> <span id="current_price">{{$product->topBid()}}</span> TND</span>
                                     <p> <i>Added by:</i> <small> {{$product->owner->name}}</small></p>
                                     
-                                    @if($product->user_id != Auth::user()->id)
-
+                                    @if(!Auth::check() || $product->user_id != Auth::user()->id)
+                                    @if($product->is_available && Auth::check())
                                     <div class="select-quantity">
                                         <input type="text" id="bid"  name="bid" title="" class="input-text qty text" >
                                     </div>
+                                    @endif
+
                                     <div class="product-add-cart">
                                         @if($product->is_available)
                                         <a onclick="addBid(event)" class="btn btn-fill">Add Bid</a>
 
+                                        @elseif($product->winningBid!=null)
+                                        <a  class="btn btn-fill-success "><i class=" fa fa-check"></i> Sold !</a>
+
                                         @else
+                                      
                                          <span class="btn btn-fill">Stop Date Reached</span>
                                         @endif
                                        

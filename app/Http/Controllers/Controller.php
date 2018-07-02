@@ -16,8 +16,11 @@ class Controller extends BaseController
     {
     	$categories = Category::orderBy('name','ASC')->get();
     	$regions = Region::orderBy('name','ASC')->get();
-        view()->share(['categories'=>$categories,
+        view()->share(
+        	[
+        	'categories'=>$categories,
         	'regions' => $regions
-        	]);
+        	]
+        	);
     }
 }

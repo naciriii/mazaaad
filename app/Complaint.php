@@ -11,6 +11,6 @@ class Complaint extends Model
 
     public function subject()
     {
-    	return $this->belongsTo('App\Subject','subject_id','id');
+    	return $this->belongsTo('App\ComplaintSubject','subject_id','id');
     }
 }
