@@ -69,6 +69,28 @@ class ProductControllerTest extends TestCase
     	}
 
     }
+    public function testDeleteProduct() {
+        $product = Product::first();
+       
+      
+
+        
+        if($product != null) {
+            $response = $this->actingAs($product->owner)
+                             ->get('products/delete/'.$product->id);
+
+
+          $this->assertDatabaseMissing('products', 
+            ['id'=>$product->id]);
+        $this->assertDatabaseMissing('product_details',
+         ['product_id'=>$product->id]);
+        $this->assertDatabaseMissing('product_pictures',
+         ['product_id'=>$product->id]);
+         $this->assertDatabaseMissing('bids',
+          ['product_id'=>$product->id]);
+        }
+
+    }
     public function testIndex() {
     	
  
