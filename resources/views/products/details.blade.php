@@ -45,17 +45,17 @@
                             <div class="col-md-6 text-center">
                                 <div class="each-product-info">
                                     <h3>{{$product->name}}</h3>
-                                    <span class="single-price"><b>Current Price:</b> <span id="current_price">{{$product->topBid()}}</span> TND</span>
+                                    <span class="single-price"><b>Current Price:</b> <span id="current_price">{{$product->topBid()}}</span> <small>TND</small></span>
                                     <p> <i>Added by:</i> <small> {{$product->owner->name}}</small></p>
                                     
                                     @if(!Auth::check() || $product->user_id != Auth::user()->id)
                                     @if($product->is_available && Auth::check())
-                                    <div class="select-quantity">
+                                    <div  class="select-quantity bid-adding">
                                         <input type="text" id="bid"  name="bid" title="" class="input-text qty text" >
                                     </div>
                                     @endif
 
-                                    <div class="product-add-cart">
+                                    <div  id="todisplay" class="product-add-cart">
                                         @if($product->is_available)
                                         <a onclick="addBid(event)" class="btn btn-fill">Add Bid</a>
 
@@ -69,11 +69,18 @@
                                        
                                     </div>
                                     @else
-                                    <div class="product-add-cart">
+                                    <div id="bid-info" class="product-add-cart">
                                         @if($product->is_available)
-                                        <a onclick="finishAuction(event)" class="btn btn-fill "><i class=" fa fa-close"></i> Finish Auction</a>
+                                        <form id="expiryForm" method="post" action="{{route('bids.expire')}}">
+                                            <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                             <input type="hidden" name="from_owner" value="true">
+                                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                        <button type="submit" class="btn btn-fill "><i class=" fa fa-close"></i> Finish Auction</button>
+                                        </form>
+                                        
                                         @elseif($product->winningBid!=null)
                                         <a  class="btn btn-fill-success "><i class=" fa fa-check"></i> Sold !</a>
+                                        <br><small>To <b>{{$product->winningBid->bidder->name}}</b> </small>
 
                                         @else
                                          <a href="{{route('products.edit',['id'=>$product->id])}}" class="btn btn-fill"> Extend Stop Date !</a>
@@ -88,7 +95,7 @@
                                         <ul>
                                         
                                             <li><b>Category:</b><a href="">{{$product->category->name}}</a></li>
-                                            <li><b>Region:</b>{{$product->region->name}}</li>
+                                            <li><b>Region:</b>{{$product->region->name or ''}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -117,27 +124,40 @@
                                 <div role="tabpanel" class="tab-pane xt-pane xt-description fade in active" id="description">
                                     <h3>Product Description</h3>
                                     <b>Description</b>
-                                    <p>{!!$product->details->description!!}</p>
+                                    <p>{!!$product->details->description or '' !!}</p>
                                    
                                 </div>
                                 <div role="tabpanel" class="tab-pane xt-pane fade" id="specification">
                                     <h3>Product Specification</h3>
+
                                     
-                                    <p>Mustache cliche tempor, williamsburg carles vegan helvetica. 
+                                    <p><b>{{$product->name}}</b>
                                    </p>
                                     <ul>
-                                        <li> 73.6% Cotton </li>
-                                        <li> 24.5% Polyester </li>
-                                        <li> 1.9% Elastane </li>
-                                         <li> 73.6% Cotton </li>
-                                        <li> 24.5% Polyester </li>
+                                        <li> <label>Category :</label> {{$product->category->name}}</li>
+                                             <li> <label>Region :</label></label> {{$product->region->name}}</li>
+                                        <li><label>Highest Price :</label> {{$product->topBid()}} <small> TND</small></li>
                                      
                                     </ul>
                                 </div>
                                 <div role="tabpanel" class="tab-pane xt-pane fade" id="seller">
-                                    aw denim you probably haven't heard of them jean shorts Austin. 
-                                    Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. 
-                                    Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi
+                                          <h3>Seller Info</h3>
+                                          @if($product->owner->details)
+                                          @if($product->owner->details->picture)
+                                          <img class="pull-right" src="{{$product->owner->details->picture}}" height="100px" width="100px">
+                                          @endif
+                                          @endif
+                                          <ul>
+                                          <li> <label>Name :</label> {{$product->owner->name}}</li>
+                                          <li>
+                                          <label>First Name :</label> {{$product->owner->details->first_name or ''}}</li>
+                                          <li>
+                                           <label>Last Name :</label> {{$product->owner->details->last_name or '' }}</li>
+                                             <li> <label>Email :</label></label> {{$product->owner->details->email or '' }}</li>
+                                        <li><label>Phone :</label> {{$product->owner->details->phone or ''}} </li>
+                                    </ul>
+
+
                                 </div>
                             </div>
                         </div>

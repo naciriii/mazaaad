@@ -7,6 +7,9 @@ use App\Bid;
 use App\Product;
 use Auth;
 use App\Events\BidPut;
+use App\Events\BidExpire;
+use App\Events\BidExpiredForAll;
+use App\Events\BidPutForAll;
 use App\Notification;
 use App\UserNotification;
 
@@ -25,16 +28,50 @@ class BidController extends Controller
     		'product_id' => 'required'
     		]);
     	$product = Product::find($request->product_id);
+        $has_bids = false;
     	$bid = Bid::where('product_id',$request->product_id)
     				->orderBy('price','desc')
     				->first();
+
                     if($bid!= null) {
     	$bid->is_winning = true;
     	$bid->save();
+        $has_bids = true;
     }
     	$product->is_available = false;
     	$product->save();
     	//notify users
+
+        $notification = new Notification;
+        $notification->bid_id = ($bid != null)? $bid->id : 0;
+        $notification->text = "Auction is finished on product ".$bid->product->name;
+        $notification->save();
+        if($bid != null) {
+        $user_ids = $bid->product->bids->pluck('user_id');
+        $data = collect([]);
+        $channels = [];
+        foreach($user_ids as $uid) {
+               if(Auth::user()->id != $uid) {
+                //add user_id to broadcast on db
+            $data->push(['notification_id' =>
+             $notification->id,
+             'user_id' => $uid]);
+         //add user channel to broadcast
+            array_push($channels, 'user-'.$uid);
+
+                 
+             }
+         }
+        UserNotification::insert($data->toArray());
+        event(new BidExpire($product,"Auction is finished on product ".$product->name,$has_bids, $channels));
+    }
+
+        
+        event(new BidExpiredForAll($product,"Auction is finished on product ".$product->name,$has_bids));
+
+        if($request->has('from_owner')) {
+            return redirect()->back();
+        }
 
 
     	return response()->json(['status' => true]);
@@ -114,7 +151,8 @@ class BidController extends Controller
 
 
 
-        event(new BidPut($notification, $channels));	
+        event(new BidPut($notification, $channels));
+        event(new BidPutForAll($notification));	
         return response()->json(['status' => true]);		  
     }
 

@@ -17,6 +17,7 @@ ClassicEditor
     } );
 });
 </script>
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/jquery.datetimepicker.min.css')}}"/>
 <style type="text/css">
 input[type="file"] {
 	display:none;
@@ -83,7 +84,14 @@ input[type="file"] {
           <div class="col-md-5 col-md-offset-2">
           	<div class="form-group"><label>End:</label> <br>
           		<div class="row">
-						<input type="datetime-local" value="{{$product->stop_date}}" class="form-control" name="stop_date" required>
+                <div class='input-group date' id='stopdatetime'>
+                    <input type='text' name="stp_date" value="{{$product->stop_date}}" required class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="fa fa-calendar"></span>
+                    </span>
+                </div>
+					
+
 					</div>
 					</div>
           	<div class="form-group"><label>Main :</label> <br>
@@ -143,7 +151,11 @@ input[type="file"] {
 
 </div>
 @section('js')
+<script src="{{asset('assets/js/jquery.datetimepicker.full.min.js')}}"></script>
 <script type="text/javascript">
+ $(function () {
+                $('#stopdatetime').datetimepicker();
+            });
 	var counter =1 ;
 	function addNewPic() {
 		if(counter<3) {

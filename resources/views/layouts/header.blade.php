@@ -29,6 +29,31 @@
     });
 
     var channel = pusher.subscribe(user_channel);
+    var globalChannel = pusher.subscribe('globalChannel');
+
+    globalChannel.bind('bidPutForAllHandler',function(data) {
+        $('#details_page #current_price').text(data.notification.bidPrice);
+
+    });
+    globalChannel.bind('bidExpiredForAllHandler',function(data) {
+    $('#product_'+data.product.id).countdown('pause');
+     $('#product_'+data.product.id).closest('.xt-feature').find('.product-tag-live').removeClass('product-tag-live').addClass('product-tag').text('Out!');
+      $('#details_page #bid-adding').hide();
+       $('#details_page #bid-info').hide();
+     if(data.has_bids) {
+
+        var html = '<a  class="btn btn-fill-success "><i class=" fa fa-check"></i> Sold !</a>';
+
+        $('#details_page #todisplay').html(html);
+
+     } else {
+        var html = '<span class="btn btn-fill">Stop Date Reached</span>';
+          $('#details_page #todisplay').html(html);
+
+     }
+
+    });
+
     channel.bind('bidPutHandler', function(data) {
         //console.log('data gotten');
       //console.log(data);
@@ -56,7 +81,34 @@
                                         </li> <li class="divider"></li>`;
                                         $('#notifications_list').prepend(html);
 
-    $('#details_page #current_price').text(data.notification.bidPrice);
+    });
+channel.bind('bidExpireHandler', function(data) {
+        //console.log('data gotten');
+      //console.log(data);
+      var count  = parseInt($('#notifications_count').text());
+      if($('#notifications_count').hasClass('hidden')) {
+        $('#notifications_count').removeClass('hidden');
+      }
+      $('#notifications_count').text(++count);
+      var html =`
+      <li>
+       <a href="`+showProductUrl+'/'+data.product.id+`">
+                                                <img src="`+data.product.picture+`" alt="">
+                          <h3>`+data.product.name+`</h3>
+              <span class="cart-price"> </span>
+            
+                     <div style="clear:both;"></div>
+                &nbsp;&nbsp;<sup>`+data.text+`</sup>
+                  <sub class="pull-right">`+data.datetime+`</sub>
+                                                
+
+      </a>
+                                            
+
+                                        </li> <li class="divider"></li>`;
+                                        $('#notifications_list').prepend(html);
+
+    
     });
     </script>
     <style type="text/css">
@@ -250,7 +302,6 @@
                                 <ul class="nav navbar-nav navbar-right ep-mobile-menu" id="navbar-nav">
                                     <li class="active"><a href="{{route('home.index')}}">Home</a></li>
                                     <li><a href="{{route('products.index')}}">Products</a></li>
-                                    <li><a href="single-shop.html">Single Product</a></li>
                                     <li><a href="">About</a></li>
                                     <li><a href="">Live Auctions</a></li>
                                     <li><a href="contact-us.html">Contact</a></li>

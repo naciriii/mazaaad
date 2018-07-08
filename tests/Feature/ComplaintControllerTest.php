@@ -17,7 +17,8 @@ class ComplaintControllerTest extends TestCase
      *
      * @return void
      */
-    public function testStoreComplaint()
+
+    public function testAddComplaint()
     {
     	$user = User::all()->first();
         if($user == null) {
@@ -27,8 +28,13 @@ class ComplaintControllerTest extends TestCase
             $user->password =bcrypt('123456');
             $user->save();
         }
-    	$response = $this->actingAs($user)->post('/complaints',['subject_id' => 1,'content'=>'tes tsgt est']);
-    	$this->assertDatabaseHas('complaints',['subject'=>1,'content'=>'tes tsgt est','user_id'=>$user->id]);
-        
+    	$response = $this->actingAs($user)->post('/complaints',[
+            'subject_id' => 1,'content'=>'test complaint'
+            ]
+            );
+    	$this->assertDatabaseHas('complaints',[
+            'subject'=>1,'content'=>'test complaint','user_id'=>$user->id
+            ]);
     }
+
 }

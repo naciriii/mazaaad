@@ -27,8 +27,8 @@
 
        
             <div class="panel panel-default">
-                <div class="panel-heading">Products
-                    <a href="{{route('products.add')}}" class="pull-right"><i class=" fa fa-pencil"></i> Add New</a>
+                <div class="panel-heading">My Products
+                    <a href="{{route('products.add')}}" class="pull-right"><i class=" fa fa-plus"></i> Add New</a>
                 </div>
 
                 <div class="panel-body">
@@ -51,8 +51,8 @@
                             <td>{{$p->name}}</td>
                             <td><img src="{{$p->mainPicture->first()->path}}" width="80px" height="80px"></td>
                             <td>{{$p->category->name}}</td>
-                            <td>{{$p->start_price}}</td>
-                             <td>{{$p->topBid()}}</td>
+                            <td>{{$p->start_price}} <small>TND</small></td>
+                             <td>{{$p->topBid()}} <small>TND</small></td>
                             <td>{{$p->stop_date}}</td>
                             <td>{{$p->region->name}}</td>
                              <td>{!!$p->is_valid?"<label class='label label-success'>Valid</label>":"<label class='label label-warning'>Pending</label>"!!}</td>

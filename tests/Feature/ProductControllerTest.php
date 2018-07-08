@@ -20,10 +20,9 @@ class ProductControllerTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
-    {
-        $this->assertTrue(true);
-    }
+   
+
+
     public function testAddProduct()
     {
     	$user = User::all()->first();
@@ -34,9 +33,8 @@ class ProductControllerTest extends TestCase
             $user->password =bcrypt('123456');
             $user->save();
         }
-             $name = "testProduct".time();
+            $name = "testProduct".time();
         $response = $this->actingAs($user)
-   
         ->post('/products/store',['name' => $name,'start_price'=>10,
         	'stop_date'=>'2018-10-10',
         	'category_id' => 1,
@@ -47,18 +45,14 @@ class ProductControllerTest extends TestCase
         	UploadedFile::fake()->image('avatar1.jpg'),
         	 UploadedFile::fake()->image('avatar2.jpg'),
         	 UploadedFile::fake()->image('avatar3.jpg')]
-
         	 ]);
-
      $this->assertDatabaseHas('products',
      ['name'=>$name,'user_id'=>$user->id]);
      $this->assertTrue($user->products->where('name',$name)->first()!=null);
-
-
-   
-
-
     }
+
+
+
     public function testShowProduct() {
     	$product = Product::first();
         

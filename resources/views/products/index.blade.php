@@ -34,7 +34,7 @@
 <div class="xt-feature">
           <span class="btn btn-block btn-fill-success countdown-container">
 
-         <span data-product="{{$product->id}}" data-finish="{{$product->stop_date}}" class="defaultCountdown"></span>   
+         <span id="product_{{$product->id}}" data-available="{{$product->is_available}}" data-product="{{$product->id}}" data-finish="{{$product->stop_date}}" class="defaultCountdown"></span>   
   </span>
 <div class="product-img">
        @if($product->pictures->count())
@@ -70,7 +70,7 @@
     
        <div 
            class="name xt-semibold text-center">
-                     <a href= "{{route('products.show',['id'=>$product->id])}}"><button class="btn btn-fill">Bid</button>
+                     <a href= "{{route('products.show',['id'=>$product->id])}}"><button class="btn btn-fill">View</button>
                      </a>
        </div>
   </div>
@@ -78,41 +78,6 @@
 </div>
 </div>
 @endforeach
-<div class="col-md-4 col-sm-4">
-<div class="xt-feature">
-<div class="product-img">
-  <img src="assets/images/1.jpg" alt="" class="img-responsive">
-  <span class="product-tag xt-uppercase">Live!</span>
-</div>
-
-<div class="product-info">
-  <div class="product-title">
-      <span class="category xt-uppercase">T-Shirt</span>
-      <span class="name xt-semibold">2017 Model</span>
-  </div>
-  <div class="price-tag pull-right">
-      
-      <span class="new-price xt-semibold">$260</span>
-  </div>
-  
-  <div class="xt-featured-caption">
-      <div class="product-title">
-          <span class="category xt-uppercase">T-Shirt</span>
-          <span class="name xt-semibold">2017 Model</span>
-      </div>
-      <div class="price-tag pull-right">
-       
-          <span class="new-price xt-semibold">$260</span>
-      </div>
-      
-      <span class="btn btn-block btn-fill-success">
-
-         
-  </span>
-  </div>
-</div>
-</div>
-</div>
 
 </div>
 <div class="clearfix"></div>
@@ -150,6 +115,7 @@ $('.defaultCountdown').each(function() {
        var finish = $(this).data('finish').split('-');
        //console.log(finish);
        var product_id = $(this).data('product');
+             var is_available = $(this).data('available');
        var el = $(this);
        var time = finish[2].split(' ')[1];
        var hour = time.split(':')[0];
@@ -161,6 +127,9 @@ $('.defaultCountdown').each(function() {
              //console.log(deadLine);
        
        $(this).countdown({until: deadLine,onExpiry:expiryCallback});
+       if(is_available == 0) {
+              $(this).countdown('pause');
+       }
        function expiryCallback() {
         //console.log(product_id);
       

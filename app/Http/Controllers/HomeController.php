@@ -21,6 +21,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+       
+        
         $products = Product::where('is_valid',true)->where('is_available',false)
         ->take(8)->get();
         return view('welcome')->withProducts($products);
