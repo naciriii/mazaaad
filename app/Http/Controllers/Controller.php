@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Category;
 use App\Region;
+use App\Product;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -22,5 +23,7 @@ class Controller extends BaseController
         	'regions' => $regions
         	]
         	);
+             Product::whereDate('stop_date','<=',date('Y-m-d H:i:s'))->update(['is_available' => false]);
+
     }
 }
