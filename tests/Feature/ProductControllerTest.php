@@ -95,4 +95,18 @@ class ProductControllerTest extends TestCase
     
 
     }
+    public function testSearchProducts() 
+    {
+      $response = $this->post(route('products.search'), [
+        'name' => null,
+        'category' => null,
+        'region' => null,
+
+        'price_min' => 50,
+          'price_max' => 50
+        ]);
+        $response->assertStatus(200);
+        $response->assertViewHas('products');
+
+    }
 }
