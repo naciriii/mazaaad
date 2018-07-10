@@ -23,7 +23,7 @@ Route::group(['prefix' => 'products'],function() {
 	Route::get('/live','ProductController@liveProducts')->name('products.live');
 	Route::post('/live','ProductController@filterLiveProducts')->name('products.searchLive');
 
-	Route::get('/category/{category}','@roductController@getByCategory')->name('products.getByCategory');
+	Route::get('/category/{category}','ProductController@getProductsByCategory')->name('products.getByCategory');
 	Route::get('/my_products','ProductController@getMyProducts')->name('products.myProducts');
 	Route::get('/delete/{product_id}','ProductController@deleteProduct')->name('products.delete');
 	Route::get('/add','ProductController@addProduct')->name('products.add');

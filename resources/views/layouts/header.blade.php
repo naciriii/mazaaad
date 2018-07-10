@@ -453,10 +453,10 @@ channel.bind('bidExpireHandler', function(data) {
 
 <div class="form-group xt-form xt-search-cat col-md-4 col-sm-4 col-xs-5  ">
 <div class="xt-select xt-search-opt">
-<select @if(isset($filters)) value="{{$filters['category']}}" @endif name="category" class="xt-dropdown-search select-beast">
+<select @if(isset($filters)) value="{{$filters['category'] or ''}}" @elseif(isset($byCategory)) value={{$byCategory}} @endif name="category" class="xt-dropdown-search select-beast">
 <option value=''>All Categories</option>
 @foreach($categories as $c )
-<option @if(isset($filters)) @if($r->id == $filters['category']) selected @endif  @endif value="{{$c->id}}">{{$c->name}}</option>
+<option @if(isset($filters)) @if($c->id == $filters['category']) selected @endif  @elseif(isset($byCategory)) @if($c->id == $byCategory) selected @endif  @endif value="{{$c->id}}">{{$c->name}}</option>
 @endforeach
 
 <option>Cosmetic</option>

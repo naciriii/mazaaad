@@ -64,6 +64,14 @@ class ProductController extends Controller
         return view('products.details')->with($data);
 
     }
+    public function getProductsByCategory($category_id) 
+    {
+        $products = Product::where('category_id',$category_id)->get();
+
+ return view('products.index')->with(['products'=>$products,'byCategory'=>$category_id]);
+
+
+    }
 
     public function filterProducts(Request $request)
     {
