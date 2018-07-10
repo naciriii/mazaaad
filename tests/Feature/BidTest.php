@@ -25,7 +25,7 @@ class BidTest extends TestCase
     {
     	 $product = Product::whereDate('stop_date','>',date('Y-m-d H:i:s'))->where('is_available',true)->first();
     	if($product == null) {
-            return $this->assert(true);
+            return true;
         }
     	$user = User::where('id','!=',$product->user_id)->first();
         if($user == null) {
@@ -61,7 +61,7 @@ class BidTest extends TestCase
     {
     	$product = Product::whereDate('stop_date','>',date('Y-m-d H:i:s'))->where('is_available',true)->first();
     	if($product == null) {
-    		return $this->assert(true);
+    		return true;
     	}
     	
 
