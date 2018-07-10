@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Complaint;
+use App\ComplaintSubject;
 use Auth;
 
 class ComplaintController extends Controller
@@ -12,9 +13,10 @@ class ComplaintController extends Controller
     public function __construct()
     {
     	$this->middleware('auth');
+        Parent::__construct();
     }
 
-    public function addComplaint(Request $request)
+    public function storeComplaint(Request $request)
     {
     	$this->validate($request, [
     		'subject_id' => 'required',
@@ -25,9 +27,12 @@ class ComplaintController extends Controller
     	$complaint->content = $request->content;
         $complaint->user_id = Auth::user()->id;
     	$complaint->save();
+        return redirect()->back()->withSuccess('Your complaint has been submited');
     }
-    public function getComplaints()
+    public function addComplaint()
     {
-        $complaints = Auth::user()->complaints;
+        $subjects = ComplaintSubject::all();
+
+        return view('complaints.index')->with(['subjects'=>$subjects]);
     }
 }

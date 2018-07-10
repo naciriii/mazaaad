@@ -314,7 +314,7 @@ channel.bind('bidExpireHandler', function(data) {
                                     <li><a href="{{route('products.index')}}">Products</a></li>
                                     <li><a href="">About</a></li>
                                     <li><a href="{{route('products.live')}}">Live Auctions</a></li>
-                                    <li><a href="contact-us.html">Contact</a></li>
+                                    <li><a href="{{route('complaints.add')}}">Complaints</a></li>
                                 </ul>
                             </div>
                         </div>

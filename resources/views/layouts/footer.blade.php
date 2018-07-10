@@ -35,7 +35,7 @@
                                 <h4>Custom Service</h4>
                                 <ul>
                                    
-                                    <li><a href=""><i class="fa fa-caret-right"></i>contact</a></li>
+                                    <li><a href="{{route('complaints.add')}}"><i class="fa fa-caret-right"></i>Complaints</a></li>
                                 </ul>
                             </div>
                     </div>

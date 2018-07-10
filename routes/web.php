@@ -16,7 +16,8 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home.index');
-Route::post('/complaints','ComplaintController@addComplaint');
+Route::get('/complaints','ComplaintController@addComplaint')->name('complaints.add');
+Route::post('/complaints','ComplaintController@storeComplaint')->name('complaints.store');
 
 Route::group(['prefix' => 'products'],function() {
 	Route::get('/','ProductController@index')->name('products.index');
