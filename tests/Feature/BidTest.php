@@ -24,7 +24,9 @@ class BidTest extends TestCase
     public function testAddbid()
     {
     	 $product = Product::whereDate('stop_date','>',date('Y-m-d H:i:s'))->where('is_available',true)->first();
-    	
+    	if($product == null) {
+            return $this->assert(true);
+        }
     	$user = User::where('id','!=',$product->user_id)->first();
         if($user == null) {
             $user = new User;
@@ -34,9 +36,7 @@ class BidTest extends TestCase
             $user->save();
         }
    
-		if($product == null) {
-    		return $this->assert(true);
-    	}
+		
     	$this->withoutMiddleware(VerifyCsrfToken::class);
 
     		$response = $this->actingAs($user)->post(route('bids.addBid'), [
