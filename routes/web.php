@@ -20,6 +20,9 @@ Route::post('/complaints','ComplaintController@addComplaint');
 
 Route::group(['prefix' => 'products'],function() {
 	Route::get('/','ProductController@index')->name('products.index');
+	Route::get('/live','ProductController@liveProducts')->name('products.live');
+	Route::post('/live','ProductController@filterLiveProducts')->name('products.searchLive');
+
 	Route::get('/category/{category}','@roductController@getByCategory')->name('products.getByCategory');
 	Route::get('/my_products','ProductController@getMyProducts')->name('products.myProducts');
 	Route::get('/delete/{product_id}','ProductController@deleteProduct')->name('products.delete');
@@ -29,6 +32,8 @@ Route::group(['prefix' => 'products'],function() {
 	Route::get('/{id}','ProductController@show')->name('products.show');
 
 	Route::post('/store','ProductController@storeProduct')->name('products.store');
+	Route::post('/','ProductController@filterProducts')->name('products.search');
+
 
 });
 

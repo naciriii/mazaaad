@@ -313,7 +313,7 @@ channel.bind('bidExpireHandler', function(data) {
                                     <li class="active"><a href="{{route('home.index')}}">Home</a></li>
                                     <li><a href="{{route('products.index')}}">Products</a></li>
                                     <li><a href="">About</a></li>
-                                    <li><a href="">Live Auctions</a></li>
+                                    <li><a href="{{route('products.live')}}">Live Auctions</a></li>
                                     <li><a href="contact-us.html">Contact</a></li>
                                 </ul>
                             </div>
@@ -371,24 +371,28 @@ channel.bind('bidExpireHandler', function(data) {
                     </div>
                     
                     <div class="col-md-9 col-sm-10 col-xs-12 xt-header-search">
+                        <form method="post" action="{{route('products.search')}}">
+    <input type="hidden" name="_token" value="{{csrf_token()}}">
+
                         <div class="form-group xt-form search-bar  col-md-3 col-sm-3 col-xs-3 ">
-                            <input type="text" class="form-control" placeholder="Search " />
+                            <input name="name" type="text" class="form-control" placeholder="Search " />
                         </div>
                          <div class="form-group xt-form search-bar  col-md-3 col-sm-3 col-xs-4 ">
                             
                             <div class="xt-select xt-search-opt">
-                                <select class="xt-dropdown-search select-beast">
-                                    <option>All Regions</option>
-                                    <option>Tunis</option>
-                                    <option>sousse</option>
+                                <select name="region" class="xt-dropdown-search select-beast">
+                                  <option value="">All Regions</option>
+                                @foreach($regions as $r)
+                                <option  value ="{{$r->id}}">{{$r->name}}</option>
+                                @endforeach
                                     
                                 </select>
                             </div>
                         </div>
                         <div class="form-group xt-form xt-search-cat col-md-3 col-sm-3 col-xs-5  ">
                             <div class="xt-select xt-search-opt">
-                                <select class="xt-dropdown-search select-beast">
-                                    <option value="0">All Categories</option>
+                                <select name="category" class="xt-dropdown-search select-beast">
+                                    <option value="">All Categories</option>
                                     @foreach($categories as $c)
                                     <option value="{{$c->id}}">{{$c->name}}</option>
                                     @endforeach
@@ -399,9 +403,10 @@ channel.bind('bidExpireHandler', function(data) {
                         </div>
                         <div class="form-group">
                             <div class="xt-search-opt xt-search-btn ">
-                                <button type="button" class="btn btn-primary btn-search"><i class="fa fa-search"></i></button>
+                                <button type="submit" class="btn btn-primary btn-search"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
+                      </form>
                     </div>
                     
                 </div>
@@ -416,25 +421,29 @@ channel.bind('bidExpireHandler', function(data) {
 
 
 <div class="col-md-11 col-sm-10 col-xs-12 xt-header-search">
+  <form method="post"    @if(url()->getRequest()->route()->getName() == 'products.live') action="{{route('products.searchLive')}}" @else action="{{route('products.search')}}" @endif>
+    <input type="hidden" name="_token" value="{{csrf_token()}}">
+
+    <input type="hidden" name="live" value="true">
 <div class="form-group xt-form search-bar  col-md-2 col-sm-2 col-xs-1 ">
-<input type="text" class="form-control" placeholder="Search " />
+<input type="text"  @if(isset($filters)) value="{{$filters['name']}}" @endif name="name" class="form-control" placeholder="Search " />
 
 </div>
 <div class="form-group xt-form search-bar  col-md-1 col-sm-1 col-xs-1 ">
-<input type="text" class="form-control" placeholder="Min " />
+<input type="text"  @if(isset($filters)) value="{{$filters['price_min'] or ''}}" @endif name="price_min" class="form-control" placeholder="Min " />
 
 
 </div>
 <div class="form-group xt-form search-bar  col-md-1 col-sm-1 col-xs-1 ">
-<input type="text" class="form-control" placeholder="Max " />
+<input  @if(isset($filters)) value="{{$filters['price_max'] or ''}}" @endif  type="text" name="price_max" class="form-control" placeholder="Max " />
 
 </div>
 <div class="form-group xt-form search-bar  col-md-4 col-sm-4 col-xs-4 ">
 <div class="xt-select xt-search-opt">
-<select class="xt-dropdown-search select-beast">
-<option>All Regions</option>
+<select  @if(isset($filters)) value="{{$filters['region']}}" @endif  name="region" class="xt-dropdown-search select-beast">
+<option value="">All Regions</option>
 @foreach($regions as $r)
-<option value ="{{$r->id}}">{{$r->name}}</option>
+<option @if(isset($filters)) @if($r->id == $filters['region']) selected @endif  @endif value ="{{$r->id}}">{{$r->name}}</option>
 @endforeach
 
 
@@ -444,20 +453,22 @@ channel.bind('bidExpireHandler', function(data) {
 
 <div class="form-group xt-form xt-search-cat col-md-4 col-sm-4 col-xs-5  ">
 <div class="xt-select xt-search-opt">
-<select class="xt-dropdown-search select-beast">
-<option value='0'>All Categories</option>
+<select @if(isset($filters)) value="{{$filters['category']}}" @endif name="category" class="xt-dropdown-search select-beast">
+<option value=''>All Categories</option>
 @foreach($categories as $c )
-<option value="{{$c->id}}">{{$c->name}}</option>
+<option @if(isset($filters)) @if($r->id == $filters['category']) selected @endif  @endif value="{{$c->id}}">{{$c->name}}</option>
 @endforeach
 
 <option>Cosmetic</option>
 </select>
 </div>
 <div class="xt-search-opt xt-search-btn">
-<button onclick="searchProducts()" type="button" class="btn btn-primary btn-search"><i class="fa fa-search"></i></button>
+<button  type="submit" class="btn btn-primary btn-search"><i class="fa fa-search"></i></button>
 </div>
 </div>
+</form>
 </div>
+
 </div>
 </div>
 </div>

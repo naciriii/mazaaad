@@ -30,20 +30,30 @@ class ProductController extends Controller
     public function index()
     {
     	$products = Product::where('is_valid',true)->get();
-        $regions = Region::all();
 
     	$data = [
     		'products' => $products,
-            'regions' => $regions
     	];
 
         return view('products.index')->with($data);
 
     }
+     public function liveProducts()
+    {
+     $products = Product::where('is_valid',true)->where('is_available',true)->get();
+      $data = [
+            'products' => $products,
+        ];
+             return view('products.index')->with($data);
 
-    public function getByCategory($category_id)
-    {}
 
+       
+
+   
+
+    }
+
+   
     public function show($id){
         $product = Product::find($id);
 
@@ -57,20 +67,55 @@ class ProductController extends Controller
 
     public function filterProducts(Request $request)
     {
-    	$products = Product::where('is_valid',true);
-    	if($request->has('region')) {
-    		$products = $products->where('region_id',$request->region_id);
+    	$products = Product::where('is_valid',true)->with('pictures','mainPicture','category');
+          if($request->has('live')) {
+            $products = $products->where('is_available',true);
+        }
+        if($request->has('region')) {
+    		$products = $products->where('region_id',$request->region);
     	}
     	if($request->has('name')) {
-    		$products = $products->where('name','ILIKE','%'.$request->name.'%');
+    		$products = $products->where('name','LIKE','%'.$request->name.'%');
     	}
     	if($request->has('category')) {
     		$products = $products->where('category_id',$request->category);
     	}
+        if($request->has('price_min')) {
+            $products = $products->where('start_price','>=',$request->price_min);
+        }
+        if($request->has('price_max')) {
+            $products = $products->where('start_price','<=',$request->price_max);
+        }
+    
 
-    	return response()->json(['products' => $products->get()]);
+    	return view('products.index')->with(['products'=>$products->get(),'filters'=>$request->all()]);
 
     }
+     public function filterLiveProducts(Request $request)
+    {
+        $products = Product::where('is_valid',true)->where('is_available',true)->with('pictures','mainPicture','category');
+        
+        if($request->has('region')) {
+            $products = $products->where('region_id',$request->region);
+        }
+        if($request->has('name')) {
+            $products = $products->where('name','LIKE','%'.$request->name.'%');
+        }
+        if($request->has('category')) {
+            $products = $products->where('category_id',$request->category);
+        }
+        if($request->has('price_min')) {
+            $products = $products->where('start_price','>=',$request->price_min);
+        }
+        if($request->has('price_max')) {
+            $products = $products->where('start_price','<=',$request->price_max);
+        }
+    
+
+        return view('products.live')->with(['products'=>$products->get(),'filters'=>$request->all()]);
+
+    }
+
 
     public function addProduct() 
     {
