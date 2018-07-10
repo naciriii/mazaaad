@@ -56,13 +56,13 @@
                                     @endif
 
                                     <div  id="todisplay" class="product-add-cart">
-                                        @if($product->is_available)
+                                        @if($product->is_available && Auth::check())
                                         <a onclick="addBid(event)" class="btn btn-fill">Add Bid</a>
 
                                         @elseif($product->winningBid!=null)
                                         <a  class="btn btn-fill-success "><i class=" fa fa-check"></i> Sold !</a>
 
-                                        @else
+                                        @elseif(Auth::check())
                                       
                                          <span class="btn btn-fill">Stop Date Reached</span>
                                         @endif

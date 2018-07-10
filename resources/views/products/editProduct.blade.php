@@ -84,8 +84,8 @@ input[type="file"] {
           <div class="col-md-5 col-md-offset-2">
           	<div class="form-group"><label>End:</label> <br>
           		<div class="row">
-                <div class='input-group date' id='stopdatetime'>
-                    <input type='text' name="stp_date" value="{{$product->stop_date}}" required class="form-control" />
+                <div class='input-group date' >
+                    <input id='stopdatetime' type='text' name="stop_date" value="{{$product->stop_date}}" required class="form-control" />
                     <span class="input-group-addon">
                         <span class="fa fa-calendar"></span>
                     </span>
@@ -153,8 +153,17 @@ input[type="file"] {
 @section('js')
 <script src="{{asset('assets/js/jquery.datetimepicker.full.min.js')}}"></script>
 <script type="text/javascript">
+function getFormattedDate(date) {
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear().toString().slice(2);
+    return year + '-' + month + '-' + day;
+}
  $(function () {
-                $('#stopdatetime').datetimepicker();
+                $('#stopdatetime').datetimepicker({
+                  format:'Y-m-d H:i',
+                  minDate: getFormattedDate(new Date())
+                });
             });
 	var counter =1 ;
 	function addNewPic() {

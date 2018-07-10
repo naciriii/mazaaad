@@ -44,7 +44,7 @@ class BidController extends Controller
 
         $notification = new Notification;
         $notification->bid_id = ($bid != null)? $bid->id : 0;
-        $notification->text = "Auction is finished on product ".$bid->product->name;
+        $notification->text = "Auction is finished on product ".$product->name;
         $notification->save();
         if($bid != null) {
         $user_ids = $bid->product->bids->pluck('user_id');

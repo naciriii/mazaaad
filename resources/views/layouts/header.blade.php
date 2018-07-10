@@ -6,21 +6,9 @@
     <head>
         <!-- TITLE OF SITE -->
         <title> Mazaad</title>
-        @if(Auth::check())
-         <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
-  <script>
-   var showProductUrl = "{{url('products/')}}";
-    var markNotificationViewedUrl = "{{route('users.viewNotifications')}}";
- function  markNotificationasViewed() {
-    $.get(markNotificationViewedUrl,function(res) {
-            $('#notifications_count').text('0').addClass('hidden');
-    })
-
- }
-  var user_channel = 'user-'+'{{ Auth::user()->id }}';
- 
-
-    // Enable pusher logging - don't include this in production
+        <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+        <script>
+        // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
     var pusher = new Pusher('f7c8d6d70765043719d2', {
@@ -28,17 +16,21 @@
       encrypted: true
     });
 
-    var channel = pusher.subscribe(user_channel);
-    var globalChannel = pusher.subscribe('globalChannel');
+         var globalChannel = pusher.subscribe('globalChannel');
+          var globalChannel = pusher.subscribe('globalChannel');
 
     globalChannel.bind('bidPutForAllHandler',function(data) {
         $('#details_page #current_price').text(data.notification.bidPrice);
 
     });
     globalChannel.bind('bidExpiredForAllHandler',function(data) {
+      console.log(data);
+      if($('#product_'+data.product.id).length) {
     $('#product_'+data.product.id).countdown('pause');
      $('#product_'+data.product.id).closest('.xt-feature').find('.product-tag-live').removeClass('product-tag-live').addClass('product-tag').text('Out!');
+   }
       $('#details_page #bid-adding').hide();
+      $('#details_page #bid').hide();
        $('#details_page #bid-info').hide();
      if(data.has_bids) {
 
@@ -54,6 +46,24 @@
 
     });
 
+         </script>
+        @if(Auth::check())
+         
+  <script>
+   var showProductUrl = "{{url('products/')}}";
+    var markNotificationViewedUrl = "{{route('users.viewNotifications')}}";
+ function  markNotificationasViewed() {
+    $.get(markNotificationViewedUrl,function(res) {
+            $('#notifications_count').text('0').addClass('hidden');
+    })
+
+ }
+  var user_channel = 'user-'+'{{ Auth::user()->id }}';
+ 
+
+    
+    var channel = pusher.subscribe(user_channel);
+   
     channel.bind('bidPutHandler', function(data) {
         //console.log('data gotten');
       //console.log(data);

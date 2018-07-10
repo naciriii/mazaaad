@@ -154,6 +154,9 @@ class ProductController extends Controller
     public function editProduct($id) 
     {
     	$product = Product::find($id);
+         if(!$product->is_available && $product->winningBid != null) {
+            return abort(404);
+        }
         $regions = Region::all();
 
         $data = ['product' => $product,
@@ -163,6 +166,7 @@ class ProductController extends Controller
 
     public function updateProduct($id, Request $request)
     {
+
         $this->validate($request, [
             'name' => 'required',
             'start_price' => 'required',
@@ -174,9 +178,17 @@ class ProductController extends Controller
 
         ]);
         $product = Product::find($id);
+        if(!$product->is_available && $product->winningBid != null) {
+            return abort(404);
+        }
         $product->name = $request->name;
         $product->start_price = $request->start_price;
-        $product->stop_date = $request->stop_date;
+ if(strtotime($request->stop_date) > strtotime(date('Y-m-d H:i:s'))) {
+    $product->stop_date = $request->stop_date;
+    $product->is_available = true;
+
+ }
+        
         $product->category_id = $request->category_id;
         $product->region_id = $request->region_id;
         $product->user_id = Auth::user()->id;

@@ -57,8 +57,20 @@
                             <td>{{$p->region->name}}</td>
                              <td>{!!$p->is_valid?"<label class='label label-success'>Valid</label>":"<label class='label label-warning'>Pending</label>"!!}</td>
                             <td>{{$p->is_available?'Yes':'No'}}</td>
-                            <td><a href="{{route('products.edit',['id'=>$p->id])}}"><button class="btn btn-sm btn-fill">Details</button></a></td>
-                            <td><button onclick="showDeleteConfirmation('{{route('products.delete',['product_id'=>$p->id])}}')" class="btn btn-sm btn-danger">Delete</button>
+                            <td> @if(count($p->bids)) 
+                                 <a href="{{route('products.show',['id'=>$p->id])}}"><button class="btn btn-sm btn-fill">Details</button></a>
+                                 @else
+        
+                                <a href="{{route('products.edit',['id'=>$p->id])}}"><button class="btn btn-sm btn-fill">Details</button></a>
+                               
+                                
+                                @endif
+
+                            </td>
+                            <td>
+                                @if(!count($p->bids) ) 
+                                <button onclick="showDeleteConfirmation('{{route('products.delete',['product_id'=>$p->id])}}')" class="btn btn-sm btn-danger">Delete</button>
+                                @endif
                             </td>
                         </tr>
 

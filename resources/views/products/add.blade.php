@@ -17,7 +17,9 @@ ClassicEditor
     } );
 });
 </script>
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/jquery.datetimepicker.min.css')}}"/>
 <style type="text/css">
+
 input[type="file"] {
 	display:none;
 	
@@ -82,9 +84,12 @@ input[type="file"] {
           </div>
           <div class="col-md-5 col-md-offset-2">
           	<div class="form-group"><label>End:</label> <br>
-          		<div class="row">
-						<input type="datetime-local" class="form-control" name="stop_date" required>
-					</div>
+          		<div class="row"> <div class='input-group date' >
+                    <input id='stopdatetime' type='text' name="stop_date" value="{{Request::old('stop_date')}}" required class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="fa fa-calendar"></span>
+                    </span>
+                </div></div>
 					</div>
           	<div class="form-group"><label>Main :</label> <br>
           		<div class="row">
@@ -121,6 +126,21 @@ input[type="file"] {
 
 </div>
 @section('js')
+<script src="{{asset('assets/js/jquery.datetimepicker.full.min.js')}}"></script>
+<script type="text/javascript">
+function getFormattedDate(date) {
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear().toString().slice(2);
+    return year + '-' + month + '-' + day;
+}
+ $(function () {
+                $('#stopdatetime').datetimepicker({
+                	   format:'Y-m-d H:i',
+                	minDate: getFormattedDate(new Date())
+                });
+            });
+            </script>
 <script type="text/javascript">
 	var counter =1 ;
 	function addNewPic() {
