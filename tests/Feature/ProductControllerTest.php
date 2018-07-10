@@ -106,7 +106,7 @@ class ProductControllerTest extends TestCase
           'price_max' => 50
         ]);
         $response->assertStatus(200);
-        $response->assertViewHas('products');
+       
 
     }
 }
