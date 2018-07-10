@@ -23,6 +23,9 @@ class ProductController extends Controller
         $this->middleware('auth',['except'=>['index','getByCategory',
             'show',
             'filterProducts',
+            'filterLiveProducts',
+            'getProductsByCategory',
+            'liveProducts'
             ]]);
     }
    
