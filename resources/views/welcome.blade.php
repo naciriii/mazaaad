@@ -75,8 +75,8 @@
                             <div class="product-img">
                                 <img height="200px" width="198px" src="{{$p->mainPicture->first()->path}}" alt="" class="">
                                 @if($p->winningBid != null)
-                                <span class="product-tag xt-uppercase">Sold!</span> @else
-                                 <span class="product-tag xt-uppercase">Over!</span>
+                                <span class="product-tag xt-uppercase">@lang('g.Sold')!</span> @else
+                                 <span class="product-tag xt-uppercase">@lang('g.Over')!</span>
 
                                 @endif
                             </div>
@@ -92,7 +92,7 @@
                                 <div class="xt-featured-caption text-center">
                                     @if($p->winningBid != null)
                                     <div class="product-title">
-                                        <span class="category xt-uppercase">Sold For</span>
+                                        <span class="category xt-uppercase">@lang('g.SoldFor')</span>
                                         <span class="name xt-semibold"><b>{{$p->winningBid->price or 0}} Tnd</b> </span>
                                     </div>
                                     <div class="price-tag text-center">
@@ -100,12 +100,12 @@
                                     </div>
                                     @else
                                      <div class="product-title">
-                                        <span class="category xt-uppercase">Past Stop Date </span>
+                                        <span class="category xt-uppercase">@lang('g.PastStopDate')</span>
                                        
                                     </div>
                                     @endif
                                     <div class="add-cart">
-                                        <a href="{{route('products.show',['id'=>$p->id])}}" class="btn btn-fill">Details</a>
+                                        <a href="{{route('products.show',['id'=>$p->id])}}" class="btn btn-fill">@lang('g.Details')</a>
                                        
                                     </div>
                                 </div>
@@ -120,7 +120,7 @@
             </div>
            
             <div class="row col-md-3 col-md-offset-7">
-                <button class="btn btn-fill">Show More</button></div>
+                <button class="btn btn-fill">@lang('g.ShowMore')</button></div>
         </div>
     </section>
   @endsection

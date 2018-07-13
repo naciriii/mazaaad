@@ -7,35 +7,23 @@
             <div class="container">
                 <div class="section-separator">
                     <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                            <div class="footer-widget footer-contact">
-                                <img src="{{asset('assets/images/flogo.png')}}" alt="" class="img-responsive">
-                                <ul>
-                                    <li><i class="fa fa-mobile-phone"></i><a href="">+(1234) 456 7896</a></li>
-                                    <li><i class="fa fa-envelope-o"></i><a href="">info@xootheme.com</a></li>
-                                    <li>
-                                        <i class="fa fa-location-arrow"></i>
-                                       <address>Address: 42/1, dariapara road, New york city, New york. USA</address> 
-                                    </li>
-                                </ul>
-                            </div>
-                    </div>
+                        <div class="col-md-4 col-sm-4"></div>
                         <div class="col-md-4 col-sm-4">
                             <div class="footer-widget">
-                                <h4>My account</h4>
+                                <h4>@lang('g.MyAccount')</h4>
                                 <ul>
-                                    <li><a href="{{route('users.profile')}}"><i class="fa fa-caret-right"></i>My account</a></li>
-                                    <li><a href=""><i class="fa fa-caret-right"></i>about us</a></li>
+                                    <li><a href="{{route('users.profile')}}"><i class="fa fa-caret-right"></i>@lang('g.MyAccount')</a></li>
+                                    <li><a href=""><i class="fa fa-caret-right"></i>@lang('g.About')</a></li>
                                     
                                 </ul>
                             </div>
                     </div>
                         <div class="col-md-4 col-sm-4">
                             <div class="footer-widget">
-                                <h4>Custom Service</h4>
+                                <h4>@lang('g.CustomService')</h4>
                                 <ul>
                                    
-                                    <li><a href="{{route('complaints.add')}}"><i class="fa fa-caret-right"></i>Complaints</a></li>
+                                    <li><a href="{{route('complaints.add')}}"><i class="fa fa-caret-right"></i>@lang('g.Complaints')</a></li>
                                 </ul>
                             </div>
                     </div>

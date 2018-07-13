@@ -12,14 +12,13 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'email' => 'Email Address',
-    'password' => 'Password',
-        'register' => 'Register',
-            'rememberMe' => 'Remember me',
-            'forgetPass' => 'Forgot your password ? ',
+    'email' => 'Adresse mail',
+    'password' => 'Mot de passe',
+    'register' => 'S\'inscrire',
+    'rememberMe' => 'Se souvenir de moi',
+                'forgetPass' => 'Mot de passe oublié ? ',
 
-
-    'failed' => 'These credentials do not match our records.',
+    'failed' => 'Mot de passe ou login incorrect',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];

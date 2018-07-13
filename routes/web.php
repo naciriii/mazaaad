@@ -11,7 +11,10 @@
 |
 */
 
-
+	Route::get('/language-chooser/{lang}', array(
+	    'as'    =>  'changeLanguage',
+	    'uses'  =>  'HomeController@languageChooser'
+	));
 
 Auth::routes();
 

@@ -195,9 +195,21 @@ channel.bind('bidExpireHandler', function(data) {
                             <div class="each-nav">
                                 <ul>
                                     <li class="dropdown">
-                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">English <span class="fa fa-angle-down"></span> </a>
+                                    <a
+                                    @if(session('locale') == 'en') href="{{route('changeLanguage',['lang'=>'en'])}}"
+                                    @else href="{{route('changeLanguage',['lang'=>'fr'])}}" @endif class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    @if(session('locale')=='en')
+                                    English
+                                    @else
+                                    Francais
+                                    @endif
+                                    <span class="fa fa-angle-down"></span> </a>
                                         <ul class="dropdown-menu xt-lang-dropdown">
-                                            <li><a href="">Frensh</a></li>
+                                            <li><a @if(session('locale') == 'en')
+                                            href="{{route('changeLanguage',['lang'=>'fr'])}}">Francais @else
+                                            href="{{route('changeLanguage',['lang'=>'en'])}}">English
+                                              @endif
+                                              </a></li>
                                             
                                             
                                         </ul>
@@ -210,8 +222,8 @@ channel.bind('bidExpireHandler', function(data) {
                         <div class="user-nav  col-md-6 col-sm-6 col-xs-12">
                            @if(Auth::guest())
                             <ul>
-                                <li><a href="{{asset('/register')}}">Sign up</a></li>
-                                <li><a href="{{asset('/login')}}">login</a></li>
+                                <li><a href="{{asset('/register')}}">@lang('auth.register')}}</a></li>
+                                <li><a href="{{asset('/login')}}">@lang('auth.login')</a></li>
                             </ul>
                             @else
 
@@ -227,19 +239,19 @@ channel.bind('bidExpireHandler', function(data) {
                                     <li>
                                         <a href="{{ route('products.myProducts') }}"
                                            >
-                                            My Products
+                                           @lang('g.MyProducts')
                                         </a>
                                     </li>
                                     <li>
                                              <a href="{{ route('users.profile') }}">
-                                                Profile
+                                               @lang('g.Profile')
                                          </a>
                                     </li> <br>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                           @lang('g.Logout')
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -310,11 +322,11 @@ channel.bind('bidExpireHandler', function(data) {
                             
                             <div class="collapse navbar-collapse" id="js-navbar-menu">
                                 <ul class="nav navbar-nav navbar-right ep-mobile-menu" id="navbar-nav">
-                                    <li class="active"><a href="{{route('home.index')}}">Home</a></li>
-                                    <li><a href="{{route('products.index')}}">Products</a></li>
-                                    <li><a href="">About</a></li>
-                                    <li><a href="{{route('products.live')}}">Live Auctions</a></li>
-                                    <li><a href="{{route('complaints.add')}}">Complaints</a></li>
+                                    <li class="active"><a href="{{route('home.index')}}">@lang('g.Home')</a></li>
+                                    <li><a href="{{route('products.index')}}">@lang('g.Products')</a></li>
+                                    <li><a href="">@lang('g.About')</a></li>
+                                    <li><a href="{{route('products.live')}}">@lang('g.LiveAuctions')</a></li>
+                                    <li><a href="{{route('complaints.add')}}">@lang('g.Complaints')</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -331,7 +343,7 @@ channel.bind('bidExpireHandler', function(data) {
                             <nav>
                                 <ul class="xt-side-menu">
                                     <li>
-                                        <a href="#">All Category</a>
+                                        <a href="#">@lang('g.AllCategory')</a>
                                         <ul class="xt-dropdown">
                                             @if(count($categories))
 
@@ -375,13 +387,13 @@ channel.bind('bidExpireHandler', function(data) {
     <input type="hidden" name="_token" value="{{csrf_token()}}">
 
                         <div class="form-group xt-form search-bar  col-md-3 col-sm-3 col-xs-3 ">
-                            <input name="name" type="text" class="form-control" placeholder="Search " />
+                            <input name="name" type="text" class="form-control" placeholder="@lang('g.Search')" />
                         </div>
                          <div class="form-group xt-form search-bar  col-md-3 col-sm-3 col-xs-4 ">
                             
                             <div class="xt-select xt-search-opt">
                                 <select name="region" class="xt-dropdown-search select-beast">
-                                  <option value="">All Regions</option>
+                                  <option value="">@lang('g.AllRegions')</option>
                                 @foreach($regions as $r)
                                 <option  value ="{{$r->id}}">{{$r->name}}</option>
                                 @endforeach
@@ -392,7 +404,7 @@ channel.bind('bidExpireHandler', function(data) {
                         <div class="form-group xt-form xt-search-cat col-md-3 col-sm-3 col-xs-5  ">
                             <div class="xt-select xt-search-opt">
                                 <select name="category" class="xt-dropdown-search select-beast">
-                                    <option value="">All Categories</option>
+                                    <option value="">@lang('g.AllCategory')</option>
                                     @foreach($categories as $c)
                                     <option value="{{$c->id}}">{{$c->name}}</option>
                                     @endforeach
@@ -426,11 +438,11 @@ channel.bind('bidExpireHandler', function(data) {
 
     <input type="hidden" name="live" value="true">
 <div class="form-group xt-form search-bar  col-md-2 col-sm-2 col-xs-1 ">
-<input type="text"  @if(isset($filters)) value="{{$filters['name']}}" @endif name="name" class="form-control" placeholder="Search " />
+<input type="text"  @if(isset($filters)) value="{{$filters['name']}}" @endif name="name" class="form-control" placeholder="@lang('g.Search')" />
 
 </div>
 <div class="form-group xt-form search-bar  col-md-1 col-sm-1 col-xs-1 ">
-<input type="text"  @if(isset($filters)) value="{{$filters['price_min'] or ''}}" @endif name="price_min" class="form-control" placeholder="Min " />
+<input type="text"  @if(isset($filters)) value="{{$filters['price_min'] or ''}}" @endif name="price_min" class="form-control" placeholder="Min" />
 
 
 </div>
@@ -441,7 +453,7 @@ channel.bind('bidExpireHandler', function(data) {
 <div class="form-group xt-form search-bar  col-md-4 col-sm-4 col-xs-4 ">
 <div class="xt-select xt-search-opt">
 <select  @if(isset($filters)) value="{{$filters['region']}}" @endif  name="region" class="xt-dropdown-search select-beast">
-<option value="">All Regions</option>
+<option value="">@lang('g.AllRegions')</option>
 @foreach($regions as $r)
 <option @if(isset($filters)) @if($r->id == $filters['region']) selected @endif  @endif value ="{{$r->id}}">{{$r->name}}</option>
 @endforeach
@@ -454,7 +466,7 @@ channel.bind('bidExpireHandler', function(data) {
 <div class="form-group xt-form xt-search-cat col-md-4 col-sm-4 col-xs-5  ">
 <div class="xt-select xt-search-opt">
 <select @if(isset($filters)) value="{{$filters['category'] or ''}}" @elseif(isset($byCategory)) value={{$byCategory}} @endif name="category" class="xt-dropdown-search select-beast">
-<option value=''>All Categories</option>
+<option value=''>@lang('g.AllCategory')</option>
 @foreach($categories as $c )
 <option @if(isset($filters)) @if($c->id == $filters['category']) selected @endif  @elseif(isset($byCategory)) @if($c->id == $byCategory) selected @endif  @endif value="{{$c->id}}">{{$c->name}}</option>
 @endforeach

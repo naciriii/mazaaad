@@ -47,10 +47,43 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                         <li class="dropdown">
+                                <a @if(session('locale') == 'en')
+                                href="{{route('changeLanguage',['lang'=>'en'])}}"
+                                @else
+                                  href="{{route('changeLanguage',['lang'=>'fr'])}}"
+                                @endif
+                                 class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                 @if(session('locale') == 'en')
+                                 English
+                                 @else
+                                 Francais
+                                 @endif
+                                     <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                     <a @if(session('locale')=='en')
+                                      href="{{route('changeLanguage',['lang'=>'fr'])}}"
+                                      @else
+                                       href="{{route('changeLanguage',['lang'=>'en'])}}"
+                                     @endif
+                                    >  @if(session('locale') == 'en')
+                                 Francais
+                                 @else
+                                 English
+                                 @endif</a>
+
+                                      
+                                    </li>
+                                </ul>
+                            </li>
+             <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">@lang('auth.register')</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
