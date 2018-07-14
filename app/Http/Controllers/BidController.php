@@ -44,7 +44,7 @@ class BidController extends Controller
 
         $notification = new Notification;
         $notification->bid_id = ($bid != null)? $bid->id : 0;
-        $notification->text = "Auction is finished on product ".$product->name;
+        $notification->text = trans("g.AuctionFinished").' '.$product->name;
         $notification->save();
         if($bid != null) {
         $user_ids = $bid->product->bids->pluck('user_id');
@@ -63,11 +63,11 @@ class BidController extends Controller
              }
          }
         UserNotification::insert($data->toArray());
-        event(new BidExpire($product,"Auction is finished on product ".$product->name,$has_bids, $channels));
+        event(new BidExpire($product,trans("g.AuctionFinished").' '.$product->name,$has_bids, $channels));
     }
 
         
-        event(new BidExpiredForAll($product,"Auction is finished on product ".$product->name,$has_bids));
+        event(new BidExpiredForAll($product,trans("g.AuctionFinished").' '.$product->name,$has_bids));
 
         if($request->has('from_owner')) {
             return redirect()->back();
@@ -131,7 +131,7 @@ class BidController extends Controller
     	}
         $notification = new Notification;
         $notification->bid_id = $bid->id;
-        $notification->text = "price was rised on product ".$bid->product->name." By ".$bid->bidder->name;
+        $notification->text = trans("g.PriceRised").' '.$bid->product->name.' '.trans("g.By").' '.$bid->bidder->name;
         $notification->save();
         $user_ids = $bid->product->bids->pluck('user_id');
         $data = collect([]);

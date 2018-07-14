@@ -57,13 +57,13 @@ class UserController extends Controller
                 $user->password = Hash::make($request->value);
                   $status = ['status' => true];
             } else {
-                  $status = ['status' => false, 'error' => 'Old Password does not match.'];
+                  $status = ['status' => false, 'error' =>trans("g.OldPassNotMatch")];
             }
             break;
             case 'email':
             if(User::where('email',$request->value)
                 ->where('id','!=',$user->id)->count()) {
-                  $status = ['status' => false, 'error' => 'Email Already exists.'];
+                  $status = ['status' => false, 'error' =>trans("g.EmailExists")];
             } else {
                 $user->email = $request->value;
                 $status = ['status' => true];

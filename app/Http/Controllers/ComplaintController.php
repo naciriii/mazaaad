@@ -27,7 +27,7 @@ class ComplaintController extends Controller
     	$complaint->content = $request->content;
         $complaint->user_id = Auth::user()->id;
     	$complaint->save();
-        return redirect()->back()->withSuccess('Your complaint has been submited');
+        return redirect()->back()->withSuccess("trans('g.ComplaintSubmited')");
     }
     public function addComplaint()
     {

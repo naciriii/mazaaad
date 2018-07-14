@@ -14,6 +14,8 @@ return [
     */
     'email' => 'Adresse mail',
     'password' => 'Mot de passe',
+    'confirmPass' => 'Confirmer MDP',
+    'name' => 'Nom',
     'register' => 'S\'inscrire',
     'rememberMe' => 'Se souvenir de moi',
                 'forgetPass' => 'Mot de passe oublié ? ',

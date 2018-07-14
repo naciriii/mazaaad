@@ -47,7 +47,7 @@
 
 
   <span class=" @if($product->is_available) product-tag-live @else product-tag @endif xt-uppercase">
-       @if($product->is_available) Live @else Out! @endif</span>
+       @if($product->is_available) @lang('g.Live') @else @lang('g.Out')! @endif</span>
 </div>
 <div class="product-info">
   <div class="product-title">
@@ -70,7 +70,7 @@
     
        <div 
            class="name xt-semibold text-center">
-                     <a href= "{{route('products.show',['id'=>$product->id])}}"><button class="btn btn-fill">View</button>
+                     <a href= "{{route('products.show',['id'=>$product->id])}}"><button class="btn btn-fill">@lang('g.View')</button>
                      </a>
        </div>
   </div>
@@ -97,7 +97,9 @@
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/jquery.countdown.css')}}"> 
 <script type="text/javascript" src="{{asset('assets/js/jquery.plugin.js')}}"></script> 
 <script type="text/javascript" src="{{asset('assets/js/jquery.countdown.js')}}"></script>
+@if(session('locale') == 'fr')
 <script type="text/javascript" src="{{asset('assets/js/jquery.countdown-fr.js')}}"></script>
+@endif
 <script type="text/javascript">
 var bidExpireUrl = "{{route('bids.expire')}}";
 function onExpire(product) {

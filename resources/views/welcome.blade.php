@@ -75,7 +75,7 @@
                             <div class="product-img">
                                 <img height="200px" width="198px" src="{{$p->mainPicture->first()->path}}" alt="" class="">
                                 @if($p->winningBid != null)
-                                <span class="product-tag xt-uppercase">@lang('g.Sold')!</span> @else
+                                <span class="product-tag-live xt-uppercase">@lang('g.Sold')!</span> @else
                                  <span class="product-tag xt-uppercase">@lang('g.Over')!</span>
 
                                 @endif
@@ -96,7 +96,7 @@
                                         <span class="name xt-semibold"><b>{{$p->winningBid->price or 0}} Tnd</b> </span>
                                     </div>
                                     <div class="price-tag text-center">
-                                        <span class="new-price xt-semibold">To <small>{{$p->winningBid->bidder->name or '' }}</small> </span>
+                                        <span class="new-price xt-semibold">@lang('g.To') <small>{{$p->winningBid->bidder->name or '' }}</small> </span>
                                     </div>
                                     @else
                                      <div class="product-title">

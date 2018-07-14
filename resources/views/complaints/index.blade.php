@@ -31,21 +31,21 @@
 	 {!! csrf_field()!!}
 
 	 <div class="form-group">
-	 	<label>Subject</label>
+	 	<label>@lang('g.Subject')</label>
 	 	<select name="subject_id" class="form-control">
-	 		<option>Choose Subject</option>
+	 		<option>@lang('g.ChooseSubject')</option>
 	 		@foreach($subjects as $s)
 	 		<option value="{{$s->id}}">{{$s->name}}</option>
 
 	 		@endforeach
 	 	</select></div>
 	 	<div class="form-group">
-	 		<label>Content</label>
+	 		<label>@lang('g.Content')</label>
 	 		<textarea class="form-control" name="content">
 	 		</textarea></div>
 	 		<div class="form-group pull-right">
 	 			<button class="btn btn-fill">
-	 				Send
+	 				@lang('g.Send')
 	 			</button></div>
 	</form>
 </div>

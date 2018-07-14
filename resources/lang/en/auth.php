@@ -14,6 +14,8 @@ return [
     */
     'email' => 'Email Address',
     'password' => 'Password',
+    'confirmPass' => 'Confirm Password',
+    'name' => 'name',
         'register' => 'Register',
             'rememberMe' => 'Remember me',
             'forgetPass' => 'Forgot your password ? ',

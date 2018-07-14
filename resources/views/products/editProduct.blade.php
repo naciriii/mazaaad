@@ -82,7 +82,7 @@ input[type="file"] {
        
           </div>
           <div class="col-md-5 col-md-offset-2">
-          	<div class="form-group"><label>End:</label> <br>
+          	<div class="form-group"><label>@lang('g.End'):</label> <br>
           		<div class="row">
                 <div class='input-group date' >
                     <input id='stopdatetime' type='text' name="stop_date" value="{{$product->stop_date}}" required class="form-control" />
@@ -94,16 +94,16 @@ input[type="file"] {
 
 					</div>
 					</div>
-          	<div class="form-group"><label>Main :</label> <br>
+          	<div class="form-group"><label>@lang('g.Main') :</label> <br>
           		<div class="row">
           			
-          		<label class="btn btn-sm btn-fill-success" ><input type="file" name="main_pic" onchange="show(this)" >Upload  <i class="fa fa-cloud"></i> </label>
+          		<label class="btn btn-sm btn-fill-success" ><input type="file" name="main_pic" onchange="show(this)" >@lang('g.Upload')  <i class="fa fa-cloud"></i> </label>
           			<img src="{{$product->mainPicture->first()->path}}" id="preview" class="" height="50px" width="50px">
           	</div>
           	</div>
           	<div class="form-group" id="pictures">
-          		<label>Additional Pics: </label> <br>
-          		<p class="text-danger" id="pics_error" > Can't add more than 3 pics</p>
+          		<label>@lang('g.AdditionalPics'): </label> <br>
+          		<p class="text-danger" id="pics_error" > @lang('g.CantAddMorePics')</p>
           		@if($product->pictures->count()>0)
           		@foreach($product->pictures as $p)
           		@if($loop->first)
@@ -111,13 +111,13 @@ input[type="file"] {
           		
           		<label class="btn btn-sm btn-fill" >
       <input type="file"  name="pictures[]" onchange="show(this)" >
-     Upload <i class='fa fa-cloud '></i>
+     @lang('g.Upload') <i class='fa fa-cloud '></i>
     </label>	<img src="{{$p->path}}" id="preview"  height="50px" width="50px">
-    <button  type="button" onclick="addNewPic()" class="btn btn-info pull-right">Add</button>
+    <button  type="button" onclick="addNewPic()" class="btn btn-info pull-right">@lang('g.Add')</button>
     </div>
           		@else
 
-              		<br>	<div class="row"><label class="btn btn-sm btn-fill" ><input type="file" name="pictures[]" onchange="show(this)" >Upload <i class="fa fa-cloud"></i> </label> <img src="{{$p->path}}" id="preview"  height="50px" width="50px"></div>
+              		<br>	<div class="row"><label class="btn btn-sm btn-fill" ><input type="file" name="pictures[]" onchange="show(this)" >@lang('g.Upload') <i class="fa fa-cloud"></i> </label> <img src="{{$p->path}}" id="preview"  height="50px" width="50px"></div>
 
           		@endif
           		@endforeach
@@ -127,9 +127,9 @@ input[type="file"] {
           		
           		<label class="btn btn-sm btn-fill" >
       <input type="file"  name="pictures[]" onchange="show(this)" >
-     Upload <i class='fa fa-cloud '></i>
+     @lang('g.Upload') <i class='fa fa-cloud '></i>
     </label>	<img src="" id="preview" class="hidden" height="50px" width="50px">
-    <button  type="button" onclick="addNewPic()" class="btn btn-info pull-right">Add</button>
+    <button  type="button" onclick="addNewPic()" class="btn btn-info pull-right">@lang('g.Add')</button>
     </div>
     @endif
               		
@@ -168,7 +168,7 @@ function getFormattedDate(date) {
 	var counter =1 ;
 	function addNewPic() {
 		if(counter<3) {
-		var html = '<br>	<div class="row"><label class="btn btn-sm btn-fill" ><input type="file" name="pictures[]" onchange="show(this)" >Upload <i class="fa fa-cloud"></i> </label> <img src="" id="preview" class="hidden" height="50px" width="50px"></div>';
+		var html = '<br>	<div class="row"><label class="btn btn-sm btn-fill" ><input type="file" name="pictures[]" onchange="show(this)" >@lang("g.Upload") <i class="fa fa-cloud"></i> </label> <img src="" id="preview" class="hidden" height="50px" width="50px"></div>';
 		$('#pictures').append(html);
 		counter++;
 	} else {

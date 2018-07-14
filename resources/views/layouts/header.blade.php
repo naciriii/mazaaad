@@ -27,19 +27,19 @@
       console.log(data);
       if($('#product_'+data.product.id).length) {
     $('#product_'+data.product.id).countdown('pause');
-     $('#product_'+data.product.id).closest('.xt-feature').find('.product-tag-live').removeClass('product-tag-live').addClass('product-tag').text('Out!');
+     $('#product_'+data.product.id).closest('.xt-feature').find('.product-tag-live').removeClass('product-tag-live').addClass('product-tag').text("@lang('g.Out')");
    }
       $('#details_page #bid-adding').hide();
       $('#details_page #bid').hide();
        $('#details_page #bid-info').hide();
      if(data.has_bids) {
 
-        var html = '<a  class="btn btn-fill-success "><i class=" fa fa-check"></i> Sold !</a>';
+        var html = '<a  class="btn btn-fill-success "><i class=" fa fa-check"></i> @lang("g.Sold") !</a>';
 
         $('#details_page #todisplay').html(html);
 
      } else {
-        var html = '<span class="btn btn-fill">Stop Date Reached</span>';
+        var html = '<span class="btn btn-fill">@lang("g.StopDateReached")</span>';
           $('#details_page #todisplay').html(html);
 
      }
@@ -222,8 +222,8 @@ channel.bind('bidExpireHandler', function(data) {
                         <div class="user-nav  col-md-6 col-sm-6 col-xs-12">
                            @if(Auth::guest())
                             <ul>
-                                <li><a href="{{asset('/register')}}">@lang('auth.register')}}</a></li>
-                                <li><a href="{{asset('/login')}}">@lang('auth.login')</a></li>
+                                <li><a href="{{asset('/register')}}">@lang('auth.register')</a></li>
+                                <li><a href="{{asset('/login')}}">Login</a></li>
                             </ul>
                             @else
 

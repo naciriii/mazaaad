@@ -27,22 +27,22 @@
 
        
             <div class="panel panel-default">
-                <div class="panel-heading">My Products
-                    <a href="{{route('products.add')}}" class="pull-right"><i class=" fa fa-plus"></i> Add New</a>
+                <div class="panel-heading">@lang('g.MyProducts')
+                    <a href="{{route('products.add')}}" class="pull-right"><i class=" fa fa-plus"></i> @lang('g.AddNew')</a>
                 </div>
 
                 <div class="panel-body">
                     <table class="table table-hover">
                         <thead>
-                            <th>Name</th>
-                            <th>Picture</th>
-                            <th>Category</th>
-                            <th>Start Price</th>
-                            <th>Current Price</th>
-                            <th>Stop Date</th>
-                            <th>Region</th>
-                            <th>Status</th>
-                            <th>Is Available</th>
+                            <th>@lang('g.Name')</th>
+                            <th>@lang('g.Picture')</th>
+                            <th>@lang('g.Category')</th>
+                            <th>@lang('g.StartPrice')</th>
+                            <th>@lang('g.CurrentPrice')</th>
+                            <th>@lang('g.StopDate')</th>
+                            <th>@lang('g.Region')</th>
+                            <th>@lang('g.Status')</th>
+                            <th>@lang('g.IsAvailable')</th>
                             <th></th>
                         </thead>
                         <tbody>
@@ -55,13 +55,18 @@
                              <td>{{$p->topBid()}} <small>TND</small></td>
                             <td>{{$p->stop_date}}</td>
                             <td>{{$p->region->name}}</td>
-                             <td>{!!$p->is_valid?"<label class='label label-success'>Valid</label>":"<label class='label label-warning'>Pending</label>"!!}</td>
-                            <td>{{$p->is_available?'Yes':'No'}}</td>
+                             <td>@if($p->is_valid)
+                                <label class='label label-success'>@lang('g.Valid')</label> @else
+                                <label class='label label-warning'>@lang('g.Pending')</label>@endif</td>
+                            <td>@if($p->is_available)
+                             @lang('g.Yes') @else 
+                             @lang('g.No')
+                             @endif</td>
                             <td> @if(count($p->bids)) 
-                                 <a href="{{route('products.show',['id'=>$p->id])}}"><button class="btn btn-sm btn-fill">Details</button></a>
+                                 <a href="{{route('products.show',['id'=>$p->id])}}"><button class="btn btn-sm btn-fill">@lang('g.Details')</button></a>
                                  @else
         
-                                <a href="{{route('products.edit',['id'=>$p->id])}}"><button class="btn btn-sm btn-fill">Details</button></a>
+                                <a href="{{route('products.edit',['id'=>$p->id])}}"><button class="btn btn-sm btn-fill">@lang('g.Details')</button></a>
                                
                                 
                                 @endif
@@ -69,7 +74,7 @@
                             </td>
                             <td>
                                 @if(!count($p->bids) ) 
-                                <button onclick="showDeleteConfirmation('{{route('products.delete',['product_id'=>$p->id])}}')" class="btn btn-sm btn-danger">Delete</button>
+                                <button onclick="showDeleteConfirmation('{{route('products.delete',['product_id'=>$p->id])}}')" class="btn btn-sm btn-danger">@lang('g.Delete')</button>
                                 @endif
                             </td>
                         </tr>
