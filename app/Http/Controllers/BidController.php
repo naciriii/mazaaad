@@ -62,6 +62,10 @@ class BidController extends Controller
                  
              }
          }
+         if(!$request->has('from_owner')) {
+            $data->push(['notification_id'=>$notification->id,'user_id'=>$product->owner->id]);
+            array_push($channels,'user-'.$product->owner->id);
+         }
         UserNotification::insert($data->toArray());
         event(new BidExpire($product,trans("g.AuctionFinished").' '.$product->name,$has_bids, $channels));
     }
@@ -145,7 +149,9 @@ class BidController extends Controller
          //add user channel to broadcast
             array_push($channels, 'user-'.$uid);
                  }
+
              }
+             $data->push(['notification_id'=>$notification->id,'user_id'=>$bid->product->owner->id]);
             array_push($channels,'user-'.$bid->product->owner->id);
         UserNotification::insert($data->toArray());
 

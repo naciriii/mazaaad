@@ -73,22 +73,28 @@
         $('#notifications_count').removeClass('hidden');
       }
       $('#notifications_count').text(++count);
-      var html =`
-      <li>
-       <a href="`+showProductUrl+'/'+data.notification.product_id+`">
-                                                <img src="`+data.notification.product_picture+`" alt="">
-                          <h3>`+data.notification.bid.product.name+`</h3>
-              <span class="cart-price">`+data.notification.bidPrice+` </span>
-            
-                     <div style="clear:both;"></div>
-                &nbsp;&nbsp;<sup>`+data.notification.text+`</sup>
-                  <sub class="pull-right">`+data.datetime+`</sub>
-                                                
-
-      </a>
                                             
+                                              
 
-                                        </li> <li class="divider"></li>`;
+                       
+                                              
+      var html =`
+      <li style="border-bottom:1px solid #ddd;">
+       <a href="`+showProductUrl+'/'+data.notification.product_id+`">
+       <i class="fa fa-exclamation-circle"></i> 
+       <span class="cart-price pull-right"><b>`+data.notification.bidPrice+`</b> <sub>TND</sub></span>
+                                                <img src="`+data.notification.product_picture+`" alt="">
+
+                                                
+                                                 <label class="text-success">`+data.notification.bid.product.name+`</label>  <br>
+
+                                       <div class="pull-left">
+
+                          <sup>`+data.notification.text+`</sup>
+                          </div>
+                            <div style="clear:both;"></div>
+                     &nbsp;<sub id="datetime"class="pull-right">`+data.datetime+`</sub>
+      </a> </li>`;
                                         $('#notifications_list').prepend(html);
 
     });
@@ -101,21 +107,20 @@ channel.bind('bidExpireHandler', function(data) {
       }
       $('#notifications_count').text(++count);
       var html =`
-      <li>
+            <li style="border-bottom:1px solid #ddd;">
        <a href="`+showProductUrl+'/'+data.product.id+`">
+       <i class="fa fa-exclamation-circle"></i> 
+       <span class="cart-price pull-right"><b></b> <sub></sub></span>
                                                 <img src="`+data.product.picture+`" alt="">
-                          <h3>`+data.product.name+`</h3>
-              <span class="cart-price"> </span>
-            
-                     <div style="clear:both;"></div>
-                &nbsp;&nbsp;<sup>`+data.text+`</sup>
-                  <sub class="pull-right">`+data.datetime+`</sub>
-                                                
+                                                 <label class="text-success">`+data.product.name+`</label><br>
+                                       <div class="pull-left">
+                          <sup>`+data.text+`</sup>
+                          </div>
+                            <div style="clear:both;"></div>
+                     &nbsp;<sub id="datetime"class="pull-right">`+data.datetime+`</sub>
+      </a> </li>`;
 
-      </a>
-                                            
-
-                                        </li> <li class="divider"></li>`;
+                                  
                                         $('#notifications_list').prepend(html);
 
     
@@ -275,24 +280,30 @@ channel.bind('bidExpireHandler', function(data) {
                                   <a href="" onmouseover="return false;" class="dropdown-toggle" data-toggle="dropdown" data-hover="">
                                    <i class=" fa fa-bell"></i>
                                   </a>
-                                    <ul id="notifications_list" style="height:400px; left:-150px; overflow:scroll;" class="dropdown-menu xt-cart-items">
+                                    <ul id="notifications_list" style="height:300px; left:-150px; overflow:scroll;" class="dropdown-menu xt-cart-items">
+
+
                                         @foreach(Auth::user()->unseenNotifications as $un)
-                                        <li>
+                                        <li style="border-bottom:1px solid #ddd;">
                                             <a href="{{route('products.show',[$un->bid->product->id])}}">
+                                              <i class="fa fa-exclamation-circle"></i> 
+                                              <span class="cart-price pull-right"><b>{{$un->bid->price}}</b> <sub>TND</sub></span>
+
                                                 <img src="{{asset($un->bid->product->mainPicture->first()->path)}}" alt="">
-                                                <h3>{{$un->bid->product->name}}</h3>
-                                                <span class="cart-price">{{$un->bid->price}} </span>
-                                              
-                                                <div style="clear:both;"></div>
-                                            &nbsp;&nbsp;<sup>{{$un->text}}</sup>
-                                              <sub class="pull-right" id="datetime">{{str_limit($un->created_at,16,'')}}</sub>
+                                                <label class="text-success">{{$un->bid->product->name}}</label> <br>
+                                               <div class="pull-left">
+                          <sup>{{$un->text}}</sup>
+                          </div>
                                                 
+                     <div style="clear:both;"></div>
+                &nbsp;
+                  <sub id="datetime"class="pull-right">{{str_limit($un->created_at,16,'')}}</sub>
+                                              
 
                                             </a>
                                             
 
                                         </li>
-                                        <li class="divider"></li>
                                         
                                         @endforeach
 
