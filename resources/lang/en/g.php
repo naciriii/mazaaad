@@ -75,7 +75,7 @@ return [
 'AuctionFinished' => 'Auction is Finished On Product',
 'PriceRised' => 'Price was Rised On Product',
 'By' => 'by',
-'complaintSubmited' => 'Your complaint Has Been Submited !',
+'ComplaintSubmited' => 'Your complaint Has Been Submited !',
 'EmailExist' => 'Email Already Exist',
 'OldPassNotMatch' => 'Old Password Doesn\'t Match',
 'Live' => 'Live',
@@ -84,7 +84,8 @@ return [
 'No' => 'No',
 'Valid' => 'Valid',
 'Pending' => 'Pending',
-'PriceMustBeBigger' => 'Proposed Price Must be Higher Than Current'
+'PriceMustBeBigger' => 'Proposed Price Must be Higher Than Current',
+
 
 
 ];

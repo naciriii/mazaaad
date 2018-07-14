@@ -75,7 +75,7 @@ return [
 'AuctionFinished' => 'Les enchères sont terminé sur le produit ',
 'PriceRised' => 'Prix Augmenté sur le produit',
 'By' => 'Par',
-'complaintSubmited' => 'Votre Réclamation a été envoyé !',
+'ComplaintSubmited' => 'Votre Réclamation a été envoyé !',
 'EmailExist' => 'Email Existe deja',
 'OldPassNotMatch' => 'Ancien mot de passe incorrect',
 'Live' => 'Direct',
