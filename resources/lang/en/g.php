@@ -68,6 +68,7 @@ return [
 'FinishAuction' => 'Finish Auction',
 'To' => 'To',
 'ExtendAuction' => 'Extend Auction',
+'ExtendStopDate' => 'Extend Stop Date',
 'ProductDescription' => 'Product Description',
 'ProductSpecification' => 'Product Specification',
 'CantAddMorePics' => 'Cannot add more than 3 pics',

@@ -68,6 +68,7 @@ return [
 'FinishAuction' => 'Finir enchère',
 'To' => 'à',
 'ExtendAuction' => 'Etendre L\'enchère',
+'ExtendStopDate' => 'Etendre Date Limite',
 'ProductDescription' => 'Description Produit',
 'ProductSpecification' => 'Specification Produit',
 'CantAddMorePics' => 'Vous etes limité sur 3 photos',
